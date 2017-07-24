@@ -1,0 +1,5 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="CatchException">
+	<Operand Code="ScalarDouble">Mx#client.TD.postTrade.exchange.afx.in.xsl.getFlowId#Mx</Operand>
+	<Operand Code="ScalarDouble"/>
+</Operator>

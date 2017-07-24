@@ -1,0 +1,29 @@
+<Operator Code="Trim">
+  <Operator Code="Str">
+    <Operator Code="Plus">
+      <Operator Code="StringToDouble">
+        <Operator Code="If">
+          <!--Condition-->
+          <Operator Code="Equal">
+            <Operand Code="ScalarField">STP_UDF8</Operand>
+            <Operand Code="ScalarString" />
+          </Operator>
+          <!--Then-->
+          <Operand Code="ScalarString">0</Operand>
+          <!--Else-->
+          <Operand Code="ScalarField">STP_UDF8</Operand>
+        </Operator>
+      </Operator>
+      <Operand Code="ScalarDouble">1</Operand>
+    </Operator>
+    <Operand Code="ScalarDouble">10</Operand>
+    <!--Precision-->
+    <Operand Code="ScalarDouble">0</Operand>
+  </Operator>
+</Operator>
+
+
+
+
+
+

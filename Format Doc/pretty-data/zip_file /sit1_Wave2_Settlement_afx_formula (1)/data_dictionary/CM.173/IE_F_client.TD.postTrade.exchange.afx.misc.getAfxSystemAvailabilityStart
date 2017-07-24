@@ -1,0 +1,6 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="Plus">
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.xsl.getCurrentDatePlusOneDay#Mx</Operand>
+  <Operand Code="ScalarString">070000</Operand>
+</Operator>
+

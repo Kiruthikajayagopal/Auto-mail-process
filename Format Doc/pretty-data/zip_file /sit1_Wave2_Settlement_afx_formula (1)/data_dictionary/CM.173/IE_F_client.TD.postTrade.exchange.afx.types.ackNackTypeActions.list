@@ -1,0 +1,9 @@
+<!-- amdg egalon galone2 -->
+<Operand Code="Vector">
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.ackNackTypeActions.const.Ack#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.ackNackTypeActions.const.NackNSF#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.ackNackTypeActions.const.NackNoAction#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.ackNackTypeActions.const.NackWithoutOverride#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.ackNackTypeActions.const.NackWithOverride#Mx</Operand>
+</Operand>
+

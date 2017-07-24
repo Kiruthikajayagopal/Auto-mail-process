@@ -1,0 +1,13 @@
+<Operator Code="If">
+	<!--Condition-->
+	<Operator Code="LessOrEqualTo">
+  	<!--Item1-->
+  	<Operand Code="ScalarDate">Mx#mx.deliverable.ValueDate#Mx</Operand>
+  	<!--Item2-->
+  	<Operand Code="ScalarDate">Mx#mx.envData.systemDate#Mx</Operand>
+  </Operator>
+	<!--Then-->
+	<Operand Code="ScalarString">continue</Operand>
+	<!--Else-->
+	<Operand Code="ScalarString">hold</Operand>
+</Operator>

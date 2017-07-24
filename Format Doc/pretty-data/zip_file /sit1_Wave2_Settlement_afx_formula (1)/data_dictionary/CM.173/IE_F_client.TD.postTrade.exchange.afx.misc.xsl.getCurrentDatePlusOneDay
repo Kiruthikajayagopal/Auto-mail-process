@@ -1,0 +1,75 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+  xmlns:date="http://exslt.org/dates-and-times"
+	version="1.0"
+	exclude-result-prefixes="mx exsl date"
+>
+	<xsl:import href="mx.generic.exslt.date.add"/>
+	<xsl:param name="isDebug"/>
+	<xsl:param name="currentDate"/>
+	<xsl:param name="currentTime"/>
+
+	<xsl:variable name="const_val_startTime" select="'070001'"/>
+	<xsl:variable name="const_val_cutoff"  select="'235000'"/>
+  <xsl:variable name="const_val_midnight"  select="'235959'"/>
+
+	<xsl:variable name="currentTimeToUse">
+		<xsl:value-of select="substring($currentTime,1,2)"/>
+		<xsl:value-of select="substring($currentTime,4,2)"/>
+		<xsl:value-of select="substring($currentTime,7,2)"/>
+	</xsl:variable>
+
+	<xsl:variable name="dateToUse">
+		<xsl:choose>
+			<xsl:when test="
+				($currentTime &gt; $const_val_cutoff)
+				and
+				($currentTime &lt; $const_val_midnight)
+				">
+        <xsl:call-template name="date:add">
+				<xsl:with-param name="date-time" select="$currentDate" />
+				<xsl:with-param name="duration" select="'P1D'" />
+				</xsl:call-template>
+			
+			</xsl:when>
+			<xsl:otherwise>
+	         <xsl:call-template name="date:add">
+				<xsl:with-param name="date-time" select="$currentDate" />
+				<xsl:with-param name="duration" select="'P0D'" />
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
+	<xsl:template match="/">
+		<!--
+		<xsl:variable name="currentDate" select="mx:execute-formula('mx.postTrade.fields.stp.StatusDate')"/>
+		-->
+		<!--
+		<xsl:value-of select="$statusDatePlusOneDay"/>
+		-->
+		<!--
+		-->
+		<xsl:value-of select="substring($dateToUse,1,4)"/>
+		<xsl:value-of select="substring($dateToUse,6,2)"/>
+		<xsl:value-of select="substring($dateToUse,9,2)"/>
+
+		<!--
+		<egDebug>
+			<currentDate>
+				<xsl:value-of select="$currentDate"/>
+			</currentDate>
+			<currentTime>
+				<xsl:value-of select="$currentTime"/>
+			</currentTime>
+			<dateToUse>
+				<xsl:value-of select="$dateToUse"/>
+			</dateToUse>
+		</egDebug>
+		-->
+	</xsl:template>
+
+</xsl:stylesheet>

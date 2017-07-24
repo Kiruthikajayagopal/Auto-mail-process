@@ -1,0 +1,10 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="If">
+  <Operator Code="Equal">
+    <Operand Code="ScalarField">JOB_DESCRIPTION</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.overrideType.const.override#Mx</Operand>
+  </Operator>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.overrideType.const.override#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.overrideType.const.noOverride#Mx</Operand>
+</Operator>
+

@@ -1,0 +1,26 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	version="1.0"
+	exclude-result-prefixes="mx exsl"
+>
+	<xsl:import href="client.TD.postTrade.exchange.afx.in.xsl.getErrors"/>
+
+	<xsl:param name="isDebug"/>
+	<xsl:param name="errorCodeDelimiter"/>
+
+	<xsl:template match="/">
+		<xsl:variable name="inDoc" select="."/>
+		<xsl:variable name="errorInfo" >
+			<xsl:call-template name="getErrors">
+				<xsl:with-param name="inDoc" select="$inDoc" />
+				<xsl:with-param name="errorCodeDelimiter" select="$errorCodeDelimiter" />
+				<xsl:with-param name="isDebug" select="$isDebug" />
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:copy-of select="$errorInfo"/>
+	</xsl:template>
+
+</xsl:stylesheet>

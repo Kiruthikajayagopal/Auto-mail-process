@@ -1,0 +1,6 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="If">
+	<Operand Code="ScalarBoolean">Mx#client.TD.postTrade.exchange.afx.misc.isPrd#Mx</Operand>
+	<Operand Code="ScalarString">afx nack       [mxFxCashAfxError]</Operand>
+	<Operand Code="ScalarString">afx nack       [mxFxCashAfxErrorTestEnv]</Operand>
+</Operator>
