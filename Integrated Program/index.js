@@ -106,7 +106,9 @@ function parseUnread() {
                                     } else {
                                         attachment.path = path.resolve(self.attachmentOptions.directory + attachment.generatedFileName);
                                         self.emit('attachment', attachment, mail);
-                                        var tamil= require('./tamil.js');
+                                        //var tamil= require('./tamil.js');
+                                      
+                                      
                                         callback();
                                     }
                                 });

@@ -1,12 +1,13 @@
 var path = require('path'), fs=require('fs'), unzip = require('unzip');
 var fs = require('fs');
+setInterval(function(){
 function fromDir(startPath,filter,callback){
 
     if (!fs.existsSync(startPath)){
         console.log("no dir ",startPath);
         return;
     }
-
+   
     var files=fs.readdirSync(startPath);
     for(var i=0;i<files.length;i++){
         var filename=path.join(startPath,files[i]);
@@ -26,5 +27,4 @@ fs.unlink(filename, function (err) {
 });
 
 });
-
- 
+},400);

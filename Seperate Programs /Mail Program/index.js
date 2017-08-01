@@ -109,6 +109,7 @@ function parseUnread() {
                                 });
                             }, function (err) {
                                 self.emit('mail', mail, seqno, attributes);
+                                console.log("sasiiiiiiiiiiiiii",mail);
                                 callback()
                             });
                         } else {
