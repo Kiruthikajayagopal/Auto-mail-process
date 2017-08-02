@@ -1,0 +1,7 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="Plus">
+  <Operand Code="ScalarString">(resent to AFX-</Operand>
+  <Operand Code="ScalarField">JOB_DESCRIPTION</Operand>
+  <Operand Code="ScalarString">)</Operand>
+</Operator>
+

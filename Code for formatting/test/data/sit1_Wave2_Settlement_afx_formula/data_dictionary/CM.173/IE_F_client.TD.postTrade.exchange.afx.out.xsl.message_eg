@@ -1,0 +1,695 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	xmlns:str="http://exslt.org/strings"
+	version="1.0"
+	exclude-result-prefixes="mx exsl str"
+	extension-element-prefixes="str"
+>
+	<xsl:import href="mx.generic.exslt.str.tokenize" />
+	<xsl:import href="mx.generic.exslt.str.padding" />
+	<xsl:import href="client.TD.postTrade.exchange.afx.misc.xsl.padding" />
+	<xsl:param name="isDebug" />
+	<xsl:param name="isDebugMxmls" />
+	<xsl:param name="dataFromDlvField" />
+	<xsl:param name="const_str_indicator_override" />
+	<xsl:param name="const_str_pipe" />
+	<xsl:variable name="const_val_1" select="'1'" />
+	<!--
+	<xsl:variable name="const_str_transactionCode" select="'TAFXNIR3'"/>
+	-->
+	<xsl:variable name="const_str_transactionSource" select="'MRX'" />
+	<xsl:variable name="const_str_requestType" select="'FT'" />
+	<xsl:variable name="const_str_customerExchangeRate" select="'1.000000'" />
+	<xsl:variable name="const_str_settlementExchangeRate" select="'1.000000'" />
+	<xsl:variable name="const_str_rateOption" select="'OFFS'" />
+	<xsl:variable name="const_str_AFX" select="'AFX'" />
+	<xsl:variable name="const_str_indicator_DAS" select="'D'" />
+	<xsl:variable name="const_str_indicator_IDAPS" select="'I'" />
+	<xsl:variable name="const_str_indicator_clearing" select="'C'" />
+	<xsl:variable name="const_str_flowSendReceive_Send" select="'Send'" />
+	<xsl:variable name="const_str_flowSendReceive_Receive" select="'Receive'" />
+	<xsl:variable name="const_val_afxOverrideId_length" select="'8'" />
+	<xsl:variable name="const_val_bookingBranch_ifBothIdaps" select="'3555'" />
+	<xsl:variable name="const_str_USD" select="'USD'" />
+	<xsl:variable name="const_str_CAD" select="'CAD'" />
+	<xsl:variable name="const_str_space" select="'&#32;'"/>
+	<xsl:variable name="const_str_decimal" select="'.'" />
+	<xsl:variable name="const_str_colon" select="':'" />
+	<xsl:variable name="const_str_CNH" select="'CNH'" />
+	<xsl:variable name="const_str_CNY" select="'CNY'" />
+	<xsl:variable name="const_str_true" select="'true'" />
+	<xsl:variable name="const_str_dlv_class" select="'mxDeliverableICASH'" />
+	<xsl:variable name="const_str_contract_class" select="'mxContractISINGLE'" />
+
+	<xsl:variable name="nettingFlag" select="/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/clientDeliverableCash/nettingFlag" />
+
+	<xsl:variable name="isNetting" select="$const_str_true = $nettingFlag" />
+
+	<xsl:variable name="contractsTmp">
+		<xsl:variable name="contractId" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/producerId/creatorId)" />
+		<xsl:if test="'' != $contractId">
+			<item>
+				<xsl:variable name="flowVersion" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/producerId/version)" />
+				<flow>
+					<id>
+						<xsl:value-of select="$flowId" />
+					</id>
+					<version>
+						<xsl:value-of select="$flowVersion" />
+					</version>
+				</flow>
+				<xsl:variable name="contractObj" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getTradeObject', concat('id:', $contractId,',version:',$flowVersion,',class:',$const_str_contract_class))"/>
+				<xsl:if test="$const_val_1 = $isDebugMxmls">
+					<contractObj>
+						<xsl:copy-of select="exsl:node-set($contractObj)" />
+					</contractObj>
+				</xsl:if>
+				<xsl:variable name="systemDate" select="exsl:node-set($contractObj)/trades/trade/tradeInputConditions/systemDate"/>
+				<xsl:variable name="computerTime" select="exsl:node-set($contractObj)/trades/trade/tradeInputConditions/computerTime"/>
+				<contract>
+					<id>
+						<xsl:value-of select="$contractId" />
+					</id>
+					<systemDate>
+						<xsl:value-of select="exsl:node-set($systemDate)" />
+					</systemDate>
+					<computerTime>
+						<xsl:value-of select="exsl:node-set($computerTime)" />
+					</computerTime>
+				</contract>
+			</item>
+		</xsl:if>
+		<xsl:for-each select="/MxML/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/issuingEventBody/eventNetting/deliverableFlowContributors/deliverableFlow">
+			<item>
+				<!--
+				<xsl:copy-of select="." />
+				-->
+				<xsl:variable name="flowId" select="normalize-space(./businessObjectId/identifier)" />
+				<xsl:variable name="flowVersion" select="normalize-space(./businessObjectId/versionIdentifier/versionRevision/versionNumber)" />
+				<flow>
+					<id>
+						<xsl:value-of select="$flowId" />
+					</id>
+					<version>
+						<xsl:value-of select="$flowVersion" />
+					</version>
+				</flow>
+				<xsl:variable name="flowObj" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getTradeObject', concat('id:', $flowId,',version:',$flowVersion,',class:',$const_str_dlv_class))"/>
+				<!--
+				<flowObj>
+					<xsl:copy-of select="exsl:node-set($flowObj)" />
+				</flowObj>
+				-->
+				<xsl:if test="$const_val_1 = $isDebugMxmls">
+					<flowObj>
+						<xsl:copy-of select="exsl:node-set($flowObj)" />
+					</flowObj>
+				</xsl:if>
+				<xsl:variable name="contractId" select="normalize-space(exsl:node-set($flowObj)/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/producerId/creatorId)" />
+				<xsl:variable name="contractObj" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getTradeObject', concat('id:', $contractId,',version:',$flowVersion,',class:',$const_str_contract_class))"/>
+				<xsl:if test="$const_val_1 = $isDebugMxmls">
+					<contractObj>
+						<xsl:copy-of select="exsl:node-set($contractObj)" />
+					</contractObj>
+				</xsl:if>
+				<xsl:variable name="systemDate" select="exsl:node-set($contractObj)/trades/trade/tradeInputConditions/systemDate"/>
+				<xsl:variable name="computerTime" select="exsl:node-set($contractObj)/trades/trade/tradeInputConditions/computerTime"/>
+				<contract>
+					<id>
+						<xsl:value-of select="$contractId" />
+					</id>
+					<systemDate>
+						<xsl:value-of select="$systemDate" />
+					</systemDate>
+					<computerTime>
+						<xsl:value-of select="$computerTime" />
+					</computerTime>
+				</contract>
+			</item>
+		</xsl:for-each>
+	</xsl:variable>
+
+	<xsl:variable name="contracts">
+		<xsl:for-each select="exsl:node-set($contractsTmp)/*">
+			<xsl:sort select="contract/id"/>
+			<xsl:copy-of select="."/>
+		</xsl:for-each>
+	</xsl:variable>
+
+	<xsl:variable name="systemDate" select="exsl:node-set($contracts)/item/contract/systemDate"/>
+	<xsl:variable name="computerTime" select="exsl:node-set($contracts)/item/contract/computerTime"/>
+
+	<xsl:variable name="contractID">
+		<xsl:value-of select="exsl:node-set($contracts)/item/contract/id"/>
+	</xsl:variable>
+
+	<xsl:variable name="dataFromDlv">
+		<xsl:call-template name="str:tokenize">
+			<xsl:with-param name="string" select="$dataFromDlvField" />
+			<xsl:with-param name="delimiters" select="$const_str_pipe" />
+		</xsl:call-template>
+	</xsl:variable>
+	<!--
+	<xsl:variable name="const_str_indicator_override" select="mx:execute-formula('client.TD.postTrade.exchange.afx.types.overrideType.const.override')"/>
+	-->
+	<xsl:variable name="afxOverrideId" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.afxOverrideId')" />
+	<xsl:variable name="const_str_indicator_afxOverrideId">
+		<xsl:variable name="const_str_indicator_afxOverrideIdTmp">
+			<xsl:value-of select="$afxOverrideId" />
+			<xsl:value-of select="$const_str_space" />
+			<xsl:value-of select="$const_str_space" />
+			<xsl:value-of select="$const_str_space" />
+			<xsl:value-of select="$const_str_space" />
+			<xsl:value-of select="$const_str_space" />
+			<xsl:value-of select="$const_str_space" />
+			<xsl:value-of select="$const_str_space" />
+		</xsl:variable>
+		<xsl:value-of select="substring($const_str_indicator_afxOverrideIdTmp,1,$const_val_afxOverrideId_length)" />
+	</xsl:variable>
+	<xsl:variable name="transactionCode" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.afxTransactionCode')" />
+	<xsl:variable name="tradeInternalId" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/tradeInternalId)" />
+	<xsl:variable name="envDataSystemDate" select="mx:execute-formula('mx.envData.systemDate')" />
+	<xsl:variable name="envDataSystemTime" select="mx:execute-formula('mx.envData.systemTime')" />
+	<xsl:variable name="valueDate">
+		<xsl:variable name="tmp1" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowInputCondition/valueDate)" />
+		<xsl:choose>
+			<xsl:when test="$tmp1 &gt; $envDataSystemDate">
+				<xsl:value-of select="$tmp1" />
+				<xsl:call-template name="formatDate_CCYY-MM-DD">
+					<xsl:with-param name="date" select="$tmp1" />
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="formatDate_CCYY-MM-DD">
+					<xsl:with-param name="date" select="$envDataSystemDate" />
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="flowId" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/businessObjectId/identifier)" />
+	<xsl:variable name="beneficiaryPartyPartyName" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowInputCondition/beneficiaryParty/partyName)" />
+	<xsl:variable name="partyInfo" select="mx:execute-formula('client.TD.postTrade.exchange.confirmation.email.misc.getCounterparty', concat('counterpartyName:', $beneficiaryPartyPartyName))" />
+	<xsl:variable name="partyFullName" select="exsl:node-set($partyInfo)/parties/party/partyFullName" />
+
+	<xsl:variable name="overrideArg" select="normalize-space(exsl:node-set($dataFromDlv)/token[2])" />
+
+	<xsl:variable name="BEN_ACC" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSettlements/vostroSettlement/userDefinedFields/userDefinedField[fieldLabel='BEN_ACC']/fieldValue)" />
+	<xsl:variable name="CSNS_ACC" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSettlements/nostroSettlement/userDefinedFields/userDefinedField[fieldLabel='CSNS_ACC']/fieldValue)" />
+	<xsl:variable name="vostro_STL_WAY" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSettlements/vostroSettlement/userDefinedFields/userDefinedField[fieldLabel='STL_WAY']/fieldValue)" />
+	<xsl:variable name="nostro_STL_WAY" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSettlements/nostroSettlement/userDefinedFields/userDefinedField[fieldLabel='STL_WAY']/fieldValue)" />
+	<xsl:variable name="flowSendReceive" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSendReceive)" />
+	<!--
+	<xsl:variable name="const_str_flowSendReceive_Send" select="'Send'"/>
+	<xsl:variable name="const_str_flowSendReceive_Receive" select="'Receive'"/>
+	-->
+	<xsl:variable name="fromAccountIndicator">
+		<xsl:choose>
+			<xsl:when test="$const_str_flowSendReceive_Receive = $flowSendReceive">
+				<!--
+				<xsl:value-of select="$const_str_indicator_DAS"/>
+				-->
+				<xsl:choose>
+					<xsl:when test="($flowCurrency != $const_str_CAD) and ($flowCurrency != $const_str_USD)">
+						<xsl:value-of select="$const_str_indicator_IDAPS" />
+						<!--
+						<xsl:value-of select="$const_str_indicator_clearing"/>
+						-->
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$const_str_indicator_DAS" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<!--
+				<xsl:value-of select="$const_str_indicator_IDAPS"/>
+				-->
+				<xsl:value-of select="$const_str_indicator_clearing" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="toAccountIndicator">
+		<xsl:choose>
+			<xsl:when test="$const_str_flowSendReceive_Receive = $flowSendReceive">
+				<!--
+				<xsl:value-of select="$const_str_indicator_IDAPS"/>
+				-->
+				<xsl:value-of select="$const_str_indicator_clearing" />
+			</xsl:when>
+			<xsl:otherwise>
+				<!--
+				<xsl:value-of select="$const_str_indicator_DAS"/>
+				-->
+				<xsl:choose>
+					<xsl:when test="($flowCurrency != $const_str_CAD) and ($flowCurrency != $const_str_USD)">
+						<xsl:value-of select="$const_str_indicator_IDAPS" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$const_str_indicator_DAS" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="toAccount">
+		<xsl:choose>
+			<xsl:when test="$const_str_flowSendReceive_Receive = $flowSendReceive">
+				<xsl:value-of select="substring($CSNS_ACC,5)" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="substring($BEN_ACC,9,7)" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="toBranch">
+		<xsl:choose>
+			<xsl:when test="$const_str_flowSendReceive_Receive = $flowSendReceive">
+				<xsl:value-of select="substring($CSNS_ACC,1,4)" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="substring($BEN_ACC,4,4)" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
+	<xsl:variable name="flowCurrency_murex" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowCurrency)" />
+	<xsl:variable name="flowCurrency">
+		<xsl:choose>
+			<xsl:when test="$flowCurrency_murex = $const_str_CNH">
+				<xsl:value-of select="$const_str_CNY" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$flowCurrency_murex" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
+	<xsl:variable name="roundedQuantity" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/roundedQuantity)" />
+
+	<xsl:variable name="fromBranch">
+		<xsl:choose>
+			<xsl:when test="$const_str_flowSendReceive_Receive = $flowSendReceive">
+				<xsl:value-of select="substring($BEN_ACC,4,4)" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="substring($CSNS_ACC,1,4)" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="bookingBranch">
+		<!--
+		<xsl:choose>
+			<xsl:when test='$fromAccountIndicator = $const_str_indicator_DAS'>		
+				<xsl:value-of select="$fromBranch"/>
+			</xsl:when>
+			<xsl:otherwise>		
+				<xsl:value-of select="$toBranch"/>
+			</xsl:otherwise>
+		</xsl:choose>
+		-->
+		<xsl:choose>
+			<!--
+			<xsl:when test="($toAccountIndicator = $const_str_indicator_IDAPS) and ($fromAccountIndicator = $const_str_indicator_IDAPS)">
+			-->
+			<xsl:when test="
+			(($toAccountIndicator = $const_str_indicator_clearing) and ($fromAccountIndicator = $const_str_indicator_IDAPS))
+			or
+			(($toAccountIndicator = $const_str_indicator_IDAPS) and ($fromAccountIndicator = $const_str_indicator_clearing))
+			">
+				<xsl:value-of select="$const_val_bookingBranch_ifBothIdaps" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+					<xsl:when test="$fromAccountIndicator = $const_str_indicator_DAS">
+						<xsl:value-of select="$fromBranch" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$toBranch" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="fromAccountNumber">
+		<xsl:choose>
+			<xsl:when test="$const_str_flowSendReceive_Receive = $flowSendReceive">
+				<xsl:value-of select="substring($BEN_ACC,9,7)" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="substring($CSNS_ACC,5)" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="transactionTimestampFromSource">
+		<xsl:call-template name="formatDate_CCYY-MM-DD">
+			<xsl:with-param name="date" select="$systemDate" />
+		</xsl:call-template>
+		<xsl:value-of select="'-'" />
+		<xsl:value-of select="translate($computerTime,':','.')" />
+		<xsl:value-of select="'.000000'" />
+	</xsl:variable>
+	<xsl:variable name="requestTimestamp">
+		<xsl:call-template name="formatDate_CCYY-MM-DD">
+			<xsl:with-param name="date" select="$envDataSystemDate" />
+		</xsl:call-template>
+		<xsl:value-of select="'-'" />
+		<xsl:value-of select="translate($envDataSystemTime,':','.')" />
+		<xsl:value-of select="'.000000'" />
+	</xsl:variable>
+	<xsl:template name="formatDate_CCYY-MM-DD">
+		<xsl:param name="date" select="''" />
+		<xsl:variable name="dateArg" select="normalize-space($date)" />
+		<xsl:value-of select="substring($dateArg,1,4)" />
+		<xsl:value-of select="'-'" />
+		<xsl:value-of select="substring($dateArg,5,2)" />
+		<xsl:value-of select="'-'" />
+		<xsl:value-of select="substring($dateArg,7,2)" />
+	</xsl:template>
+	<xsl:variable name="STP_LAST_VALIDATION_DATE" select="normalize-space(mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getScalar', 'name:STP_LAST_VALIDATION_DATE'))" />
+	<xsl:variable name="STP_LAST_VALIDATION_TIME" select="normalize-space(mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getScalar', 'name:STP_LAST_VALIDATION_TIME'))" />
+	<xsl:variable name="STP_STATUS_VALIDATION_LEVEL" select="normalize-space(mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getScalar', 'name:STP_STATUS_VALIDATION_LEVEL'))" />
+	<xsl:variable name="STP_LAST_VALIDATOR" select="normalize-space(mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getScalar', 'name:STP_LAST_VALIDATOR'))" />
+	<xsl:variable name="STP_LAST_VALIDATOR_GROUP" select="normalize-space(mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getScalar', 'name:STP_LAST_VALIDATOR_GROUP'))" />
+	<xsl:variable name="outgoingMsgTriesArg" select="normalize-space(exsl:node-set($dataFromDlv)/token[3])" />
+	<xsl:variable name="outgoingMsgTries">
+		<xsl:call-template name="padding">
+			<xsl:with-param name="strToPad" select="$outgoingMsgTriesArg" />
+			<xsl:with-param name="totalLength" select="4" />
+		</xsl:call-template>
+	</xsl:variable>
+	<xsl:variable name="dlvFlowDirection" select="normalize-space(exsl:node-set($dataFromDlv)/token[4])" />
+	<xsl:variable name="ospUser" select="normalize-space(exsl:node-set($dataFromDlv)/token[5])" />
+	<xsl:variable name="ospGroup" select="normalize-space(exsl:node-set($dataFromDlv)/token[6])" />
+	<xsl:variable name="ospOperationDate" select="normalize-space(exsl:node-set($dataFromDlv)/token[7])" />
+	<xsl:variable name="ospOperationTimeArg" select="normalize-space(exsl:node-set($dataFromDlv)/token[8])" />
+	<xsl:variable name="ospOperationTime">
+		<xsl:copy-of select="translate($ospOperationTimeArg,$const_str_colon,'')" />
+	</xsl:variable>
+	<xsl:variable name="outgoing">
+		<data>
+			<xsl:if test="$const_val_1 = $isDebug">
+				<egDebug>
+					<xsl:if test="$const_val_1 = $isDebugMxmls">
+						<mxml>
+							<xsl:copy-of select="." />
+						</mxml>
+					</xsl:if>
+					<nettingFlag>
+						<xsl:value-of select="$nettingFlag" />
+					</nettingFlag>
+					<isNetting>
+						<xsl:value-of select="$isNetting" />
+					</isNetting>
+					<contractsTmp>
+						<xsl:copy-of select="$contractsTmp" />
+					</contractsTmp>
+					<contracts>
+						<xsl:copy-of select="$contracts" />
+					</contracts>
+					<dataFromDlv>
+						<xsl:copy-of select="$dataFromDlv" />
+					</dataFromDlv>
+					<overrideArg>
+						<xsl:value-of select="$nettingFlag" />
+					</overrideArg>
+					<outgoingMsgTriesArg>
+						<xsl:value-of select="$outgoingMsgTriesArg" />
+					</outgoingMsgTriesArg>
+					<outgoingMsgTries>
+						<xsl:value-of select="$outgoingMsgTries" />
+					</outgoingMsgTries>
+					<dlvFlowDirection>
+						<xsl:value-of select="$dlvFlowDirection" />
+					</dlvFlowDirection>
+					<ospUser>
+						<xsl:value-of select="$ospUser" />
+					</ospUser>
+					<ospGroup>
+						<xsl:value-of select="$ospGroup" />
+					</ospGroup>
+					<ospOperationDate>
+						<xsl:value-of select="$ospOperationDate" />
+					</ospOperationDate>
+					<ospOperationTime>
+						<xsl:value-of select="$ospOperationTime" />
+					</ospOperationTime>
+					<const_str_indicator_override>
+						<xsl:value-of select="$const_str_indicator_override" />
+					</const_str_indicator_override>
+					<!--
+					<const_str_indicator_afxOverrideIdTmp>
+						<xsl:value-of select="$const_str_indicator_afxOverrideIdTmp"/>
+					</const_str_indicator_afxOverrideIdTmp>
+					-->
+					<const_str_indicator_afxOverrideId>
+						<xsl:value-of select="$const_str_indicator_afxOverrideId" />
+					</const_str_indicator_afxOverrideId>
+					<overrideArg>
+						<xsl:value-of select="$overrideArg" />
+					</overrideArg>
+					<BEN_ACC>
+						<xsl:value-of select="$BEN_ACC" />
+					</BEN_ACC>
+					<CSNS_ACC>
+						<xsl:value-of select="$CSNS_ACC" />
+					</CSNS_ACC>
+					<contractID>
+						<xsl:value-of select="$contractID" />
+					</contractID>
+					<tradeInternalId>
+						<xsl:value-of select="$tradeInternalId" />
+					</tradeInternalId>
+					<beneficiaryPartyPartyName>
+						<xsl:value-of select="$beneficiaryPartyPartyName" />
+					</beneficiaryPartyPartyName>
+					<xsl:if test="$const_val_1 = $isDebugMxmls">
+						<partyInfo>
+							<xsl:copy-of select="$partyInfo" />
+						</partyInfo>
+					</xsl:if>
+					<partyFullName>
+						<xsl:value-of select="$partyFullName" />
+					</partyFullName>
+					<flowId>
+						<xsl:value-of select="$flowId" />
+					</flowId>
+					<valueDate>
+						<xsl:value-of select="$valueDate" />
+					</valueDate>
+					<envDataSystemDate>
+						<xsl:value-of select="$envDataSystemDate" />
+					</envDataSystemDate>
+					<envDataSystemTime>
+						<xsl:value-of select="$envDataSystemTime" />
+					</envDataSystemTime>
+					<systemDate>
+						<xsl:value-of select="$systemDate" />
+					</systemDate>
+					<computerTime>
+						<xsl:value-of select="$computerTime" />
+					</computerTime>
+					<transactionTimestampFromSource>
+						<xsl:value-of select="$transactionTimestampFromSource" />
+					</transactionTimestampFromSource>
+					<requestTimestamp>
+						<xsl:value-of select="$requestTimestamp" />
+					</requestTimestamp>
+				</egDebug>
+			</xsl:if>
+			<header desc="messageHeader" note="orderOfChildNodesIsImportant">
+				<transactionCode length="8">
+					<!--
+					<xsl:value-of select="$const_str_transactionCode"/>
+					-->
+					<xsl:value-of select="$transactionCode" />
+				</transactionCode>
+				<filler length="1" />
+			</header>
+			<payload desc="includesPayloadHeader" note="orderOfChildNodesIsImportant">
+				<xsl:attribute name="flowSendReceive">
+					<xsl:value-of select="$flowSendReceive" />
+				</xsl:attribute>
+				<xsl:attribute name="dlvFlowDirection">
+					<xsl:value-of select="$dlvFlowDirection" />
+				</xsl:attribute>
+				<xsl:attribute name="nettingFlag">
+					<xsl:value-of select="$nettingFlag" />
+				</xsl:attribute>
+				<xsl:attribute name="isNetting">
+					<xsl:value-of select="$isNetting" />
+				</xsl:attribute>
+				<xsl:attribute name="contractID">
+					<xsl:value-of select="$contractID" />
+				</xsl:attribute>
+				<xsl:attribute name="tradeId">
+					<xsl:value-of select="$tradeInternalId" />
+				</xsl:attribute>
+				<xsl:attribute name="outgoingMsgTries">
+					<xsl:value-of select="$outgoingMsgTries" />
+				</xsl:attribute>
+				<!--
+				<xsl:attribute name="envDataSystemDate">
+				<xsl:value-of select="$envDataSystemDate"/>
+				</xsl:attribute>
+				<xsl:attribute name="envDataSystemTime">
+				<xsl:value-of select="$envDataSystemTime"/>
+				</xsl:attribute>
+				-->
+				<xsl:attribute name="envDataSystemDateTime">
+					<xsl:value-of select="$envDataSystemDate" />
+					<xsl:value-of select="'_'" />
+					<xsl:value-of select="$envDataSystemTime" />
+				</xsl:attribute>
+				<!--
+				-->
+				<xsl:attribute name="ospOperationDate">
+					<xsl:value-of select="$ospOperationDate" />
+				</xsl:attribute>
+				<xsl:attribute name="ospOperationTime">
+					<xsl:value-of select="$ospOperationTime" />
+				</xsl:attribute>
+				<xsl:attribute name="STP_STATUS_VALIDATION_LEVEL">
+					<xsl:value-of select="$STP_STATUS_VALIDATION_LEVEL" />
+				</xsl:attribute>
+				<xsl:attribute name="overrideArg">
+					<xsl:value-of select="$overrideArg" />
+				</xsl:attribute>
+				<xsl:attribute name="ospUser">
+					<xsl:value-of select="$ospUser" />
+				</xsl:attribute>
+				<xsl:attribute name="ospGroup">
+					<xsl:value-of select="$ospGroup" />
+				</xsl:attribute>
+				<!--
+				-->
+				<transactionSource length="3">
+					<xsl:value-of select="$const_str_transactionSource" />
+				</transactionSource>
+				<requestType length="2">
+					<xsl:value-of select="$const_str_requestType" />
+				</requestType>
+				<messageDataHeaderFiller length="35">messageDataHeaderFiller</messageDataHeaderFiller>
+				<bookingBranch length="5" numeric="true">
+					<!--
+					<xsl:value-of select="$bookingBranch"/>
+					<xsl:value-of select="$fromBranch"/>
+					-->
+					<xsl:value-of select="$bookingBranch" />
+				</bookingBranch>
+				<fromAccountIndicator length="1">
+					<xsl:value-of select="$fromAccountIndicator" />
+				</fromAccountIndicator>
+				<fromBranch length="5" numeric="true">
+					<xsl:value-of select="$fromBranch" />
+				</fromBranch>
+				<fromAccountNumber length="7" numeric="true">
+					<xsl:value-of select="$fromAccountNumber" />
+				</fromAccountNumber>
+				<fromAccountAmount decimal="2" length="15" numeric="true">
+					<xsl:value-of select="$roundedQuantity" />
+				</fromAccountAmount>
+				<fromAccountCurrencyCode length="3">
+					<xsl:value-of select="$flowCurrency" />
+				</fromAccountCurrencyCode>
+				<toAccountIndicator length="1">
+					<xsl:value-of select="$toAccountIndicator" />
+				</toAccountIndicator>
+				<toBranch length="5" numeric="true">
+					<xsl:value-of select="$toBranch" />
+				</toBranch>
+				<toAccount length="7" numeric="true">
+					<!--
+					<xsl:value-of select="'4060319'"/>
+					-->
+					<xsl:value-of select="$toAccount" />
+				</toAccount>
+				<toAccountAmount decimal="2" length="15" numeric="true">
+					<xsl:value-of select="$roundedQuantity" />
+				</toAccountAmount>
+				<toAccountCurrencyCode length="3">
+					<xsl:value-of select="$flowCurrency" />
+				</toAccountCurrencyCode>
+				<ictReferenceNumber length="16" desc="mxFlowId">
+					<xsl:value-of select="$flowId" />
+				</ictReferenceNumber>
+				<ictNotes length="40" />
+				<customerName length="40">
+					<xsl:value-of select="$partyFullName" />
+				</customerName>
+				<valueDate length="10">
+					<!--
+					<xsl:value-of select="$valueDate"/>
+					-->
+				</valueDate>
+				<backdatedDasFlag length="1" />
+				<rateOption length="4">
+					<xsl:value-of select="$const_str_rateOption" />
+				</rateOption>
+				<customerExchangeRate decimal="6" length="8" numeric="true">
+					<xsl:value-of select="$const_str_customerExchangeRate" />
+				</customerExchangeRate>
+				<settlementExchangeRate decimal="6" length="8" numeric="true">
+					<xsl:value-of select="$const_str_settlementExchangeRate" />
+				</settlementExchangeRate>
+				<contractNumber length="11" numeric="true">
+					<xsl:value-of select="$contractID" />
+				</contractNumber>
+				<tradeTimestamp length="26" example="CCYY-MM-DD-hh.mm.ss.nnnnn">
+					<xsl:value-of select="$transactionTimestampFromSource" />
+				</tradeTimestamp>
+				<requestTimestamp length="26" example="CCYY-MM-DD-hh.mm.ss.nnnnn">
+					<xsl:value-of select="$requestTimestamp" />
+				</requestTimestamp>
+				<logonId length="8">MRXSSSSS</logonId>
+				<!--
+				<userId length='8'>
+				userId
+				</userId>
+				<overrideId length='8'>
+				-->
+				<overrideId>
+					<xsl:attribute name="length">
+						<xsl:value-of select="$const_val_afxOverrideId_length" />
+					</xsl:attribute>
+					<xsl:if test="$const_str_indicator_override = $overrideArg">
+						<!--
+						<xsl:value-of select="$const_str_indicator_afxOverrideId" />
+						-->
+						<xsl:value-of select="$ospUser" />
+					</xsl:if>
+				</overrideId>
+				<passthruArea length="30">
+					<xsl:value-of select="$tradeInternalId" />
+					<xsl:value-of select="$const_str_pipe" />
+					<xsl:value-of select="$outgoingMsgTries" />
+					<xsl:value-of select="$const_str_pipe" />
+					<xsl:value-of select="$ospUser" />
+					<xsl:value-of select="$const_str_pipe" />
+					<xsl:value-of select="$ospOperationTime" />
+					<xsl:value-of select="$const_str_pipe" />
+					<xsl:value-of select="$ospOperationDate" />
+					<xsl:value-of select="$const_str_pipe" />
+				</passthruArea>
+				<forFutureUse length="144">forFutureUse</forFutureUse>
+			</payload>
+		</data>
+	</xsl:variable>
+	<xsl:template match="/">
+		<!--
+		<aaa>		
+			<xsl:for-each select="exsl:node-set($outgoing)/*/payload/*">
+				<xsl:variable name="thisNode" select="."/>
+				<xsl:variable name="thisNodeName" select="local-name($thisNode)"/>
+				<node>
+					<xsl:element name="{$thisNodeName}"/>
+				</node>
+			</xsl:for-each>
+		</aaa>
+		-->
+		<xsl:copy-of select="$outgoing" />
+	</xsl:template>
+</xsl:stylesheet>
+

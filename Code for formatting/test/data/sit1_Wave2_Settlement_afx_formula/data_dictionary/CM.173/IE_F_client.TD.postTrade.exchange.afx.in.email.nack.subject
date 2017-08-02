@@ -1,0 +1,13 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="If">
+  <Operand Code="ScalarBoolean">Mx#client.TD.postTrade.exchange.confirmation.common.hostServerCheck#Mx</Operand>
+  <!--  toUpdate	-->
+  <!--  toUpdate	-->
+  <!--  toUpdate	-->
+	<Operand Code="ScalarString">afx nack       [mxFxCashAfxError]</Operand>
+  <!--  toUpdate	-->
+  <!--  toUpdate	-->
+  <!--  toUpdate	-->
+	<Operand Code="ScalarString">afx nack       [mxFxCashAfxErrorTest]</Operand>
+</Operator>
+

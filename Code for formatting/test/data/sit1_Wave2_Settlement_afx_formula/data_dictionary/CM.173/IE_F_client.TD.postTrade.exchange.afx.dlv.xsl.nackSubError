@@ -1,0 +1,59 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	xmlns:str="http://exslt.org/strings"
+	version="1.0"
+	exclude-result-prefixes="mx exsl str"
+	extension-element-prefixes="str"
+>
+	<xsl:import href="mx.generic.exslt.str.tokenize"/>
+	<xsl:param name="isDebug"/>
+	<xsl:param name="afxSubError"/>
+
+	<xsl:variable name="const_val_fieldLength" select="'225'"/>
+	<xsl:variable name="const_str_delimiter" select="','"/>
+	<xsl:variable name="const_str_semiColon" select="';'"/>
+	<xsl:variable name="const_str_colon" select="':'"/>
+
+	<xsl:template match="/">
+
+		<xsl:variable name="subErrorsCodes">
+			<xsl:call-template name="str:tokenize">
+				<xsl:with-param name="string" select="$afxSubError" />
+				<xsl:with-param name="delimiters" select="$const_str_delimiter" />
+			</xsl:call-template>
+		</xsl:variable>
+
+		<xsl:variable name="subErrorsTxt">
+			<xsl:for-each select="exsl:node-set($subErrorsCodes)/*">
+				<!--
+				<xsl:variable name="localName" select="normalize-space(local-name(.))"/>
+				-->
+				<xsl:variable name="errCode" select="normalize-space(./text())"/>
+				<xsl:variable name="errCodeType" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.afxErrorCodesNackType', concat('errorCode:', $errCode))"/>
+				<xsl:variable name="codeTxt" select="normalize-space(exsl:node-set($errCodeType)/row/cell[@alias='errorDesc'])"/>
+				<xsl:variable name="isCatchAllCondition" select="normalize-space(exsl:node-set($errCodeType)/row/cell[@alias='isCatchAllCondition'])"/>
+				<xsl:if test="position() &gt; 1">
+					<xsl:value-of select="$const_str_delimiter"/>
+				</xsl:if>
+				<!--
+				<xsl:value-of select="$codeTxt"/>
+				<xsl:value-of select="$errCode"/>
+				-->
+				<xsl:value-of select="'{'"/>
+				<xsl:if test="'' != $isCatchAllCondition">
+					<xsl:value-of select="$errCode"/>
+					<xsl:value-of select="$const_str_colon"/>
+				</xsl:if>
+				<xsl:value-of select="translate($codeTxt, $const_str_semiColon,'')"/>
+				<xsl:value-of select="'}'"/>
+			</xsl:for-each>
+		</xsl:variable>
+
+		<xsl:variable name="subErrors" select="substring($subErrorsTxt,1,$const_val_fieldLength)"/>
+		<xsl:value-of select="$subErrors"/>
+	</xsl:template>
+
+</xsl:stylesheet>
