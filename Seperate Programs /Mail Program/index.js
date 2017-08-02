@@ -63,7 +63,9 @@ function imapReady() {
             }
             self.imap.on('mail', imapMail.bind(self));
         }
+        
     });
+   
 }
 
 function imapClose() {
@@ -104,12 +106,14 @@ function parseUnread() {
                                     } else {
                                         attachment.path = path.resolve(self.attachmentOptions.directory + attachment.generatedFileName);
                                         self.emit('attachment', attachment, mail);
+                                        //var tamil= require('./tamil.js');
+                                      
+                                      
                                         callback();
                                     }
                                 });
                             }, function (err) {
                                 self.emit('mail', mail, seqno, attributes);
-                                console.log("sasiiiiiiiiiiiiii",mail);
                                 callback()
                             });
                         } else {

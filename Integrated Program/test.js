@@ -76,10 +76,7 @@ function fromDir(startPath,filter,callback){
  };
 fromDir('/Users/kumars/Desktop/attachments',/\.zip$/,function(filename){
    //console.log('-- found:',filename);
-   mailsend=1;
-  fs.createReadStream(filename).pipe(unzip.Extract({ path:  filename.slice(0, filename.lastIndexOf("/"))   }));
  var tamil= require('./tamil.js');
-
 mailsend=1;
 
 //console.log(username)
@@ -120,12 +117,13 @@ transport.sendMail(mail, function(error, response){
 });
 
 
-
+/*
 
   
 fs.unlink(filename, function (err) {
  if (err) console.log(err);
 });
+*/
 });
 
 
