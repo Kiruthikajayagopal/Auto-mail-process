@@ -1,1 +1,12 @@
-<XSLParameters><XSLParameter><Name>currentTime</Name><Type>FORMULA</Type><Value>mx.envData.systemTime</Value></XSLParameter><XSLParameter><Name>isDebug</Name><Type>CTX</Type><Value>isDebug</Value></XSLParameter></XSLParameters>
+<XSLParameters>
+  <XSLParameter>
+    <Name>currentTime</Name>
+    <Type>FORMULA</Type>
+    <Value>mx.envData.systemTime</Value>
+  </XSLParameter>
+  <XSLParameter>
+    <Name>isDebug</Name>
+    <Type>CTX</Type>
+    <Value>isDebug</Value>
+  </XSLParameter>
+</XSLParameters>

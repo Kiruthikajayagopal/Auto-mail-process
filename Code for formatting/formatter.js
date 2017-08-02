@@ -5,16 +5,17 @@ const fs = require('fs');
 fs.readdir(testFolder, (err, files) => {
     files.forEach(file => {
         console.log("Formatting file %s",file);
-        var unformattedText = fs.readFileSync(testFolder + '/'+file).toString();
-        console.log(unformattedText);
-        let formattedText=pd.xml(unformattedText);
-        console.log(formattedText);
+        var unformattedText = fs.readFileSync(testFolder + '/' + file).toString();
+        // console.log(unformattedText);
+        let formattedText = pd.xml(unformattedText);
+        // console.log(formattedText);
 
-		/*let writeStream = fs.createWriteStream(testFolder+file);
-		writeStream.write(pp_xml );
-		writeStream.on('finish', () => {  
-		  console.log('wrote all data to file');
-	   }); */
+        let writeStream = fs.createWriteStream(testFolder + '/' + file);
+        writeStream.write(formattedText);
+        writeStream.on('finish', () => {
+            console.log('wrote all data to file');
+        
+        });
 
     });
 })

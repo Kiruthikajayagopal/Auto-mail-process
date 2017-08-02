@@ -1,107 +1,107 @@
 <?xml version="1.0" ?>
 <!DOCTYPE Operator>
 <Operator Code="BestMatching">
-	<Context Code="InputValues">
-		<Context Code="InputValue">
-			<Context Code="Column">0</Context>
-			<Context Code="Value">MxCTX#test#Mx</Context>
-			<Context Code="Label">AckNackScenario</Context>
-			<Context Code="DisplayWidth">230</Context>
-			<Context Code="ChoiceFormula">client.TD.postTrade.exchange.afx.types.nackType.list</Context>
-		</Context>
-	</Context>
-	<Operator Code="OrderBestMatching">
-		<Operand Code="Matrix">
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">CourtOrder</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">CourtOrder</Operand>
-				<Operand Code="ScalarString">180</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">Freeze</Operand>
-				<Operand Code="ScalarString">053</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">AccountStopped</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">FullAccountOnHold</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">AFX_DAS_notAvailable</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">CDA_MirroAccount</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">CourtOrder</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">AccountStatusClosedAccount</Operand>
-				<Operand Code="ScalarString">048</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">AccountNotFound</Operand>
-				<Operand Code="ScalarString">046</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">FullAccountOnHold</Operand>
-				<Operand Code="ScalarString">061</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">PartialAccountOnHold</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">CDIC_Restricted</Operand>
-				<Operand Code="ScalarString">059</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">CDA_AutomaticTransferNotAvailable</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">CDA_MirroAccount</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">CDA_NoCreditFeature</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">NSF</Operand>
-				<Operand Code="ScalarString">073</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">AFX_DAS_notAvailable</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">CourtOrder</Operand>
-				<Operand Code="ScalarString">999999999999999999999</Operand>
-			</Operand>
-		</Operand>
-		<Context Code="Priorities">
-			<Context Code="Column">0</Context>
-		</Context>
-	</Operator>
-	<Context Code="OutputColumns">
-		<Context Code="OutputColumn">
-			<Context Code="Column">1</Context>
-			<Context Code="Label">Output</Context>
-			<Context Code="DisplayWidth">1084</Context>
-			<Context Code="ChoiceFormula">null</Context>
-		</Context>
-	</Context>
-	<Context Code="ReturnType">
-		<Context Code="MultipleLineResult">true</Context>
-	</Context>
+  <Context Code="InputValues">
+    <Context Code="InputValue">
+      <Context Code="Column">0</Context>
+      <Context Code="Value">MxCTX#test#Mx</Context>
+      <Context Code="Label">AckNackScenario</Context>
+      <Context Code="DisplayWidth">230</Context>
+      <Context Code="ChoiceFormula">client.TD.postTrade.exchange.afx.types.nackType.list</Context>
+    </Context>
+  </Context>
+  <Operator Code="OrderBestMatching">
+    <Operand Code="Matrix">
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">CourtOrder</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">CourtOrder</Operand>
+        <Operand Code="ScalarString">180</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">Freeze</Operand>
+        <Operand Code="ScalarString">053</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">AccountStopped</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">FullAccountOnHold</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">AFX_DAS_notAvailable</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">CDA_MirroAccount</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">CourtOrder</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">AccountStatusClosedAccount</Operand>
+        <Operand Code="ScalarString">048</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">AccountNotFound</Operand>
+        <Operand Code="ScalarString">046</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">FullAccountOnHold</Operand>
+        <Operand Code="ScalarString">061</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">PartialAccountOnHold</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">CDIC_Restricted</Operand>
+        <Operand Code="ScalarString">059</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">CDA_AutomaticTransferNotAvailable</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">CDA_MirroAccount</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">CDA_NoCreditFeature</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">NSF</Operand>
+        <Operand Code="ScalarString">073</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">AFX_DAS_notAvailable</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">CourtOrder</Operand>
+        <Operand Code="ScalarString">999999999999999999999</Operand>
+      </Operand>
+    </Operand>
+    <Context Code="Priorities">
+      <Context Code="Column">0</Context>
+    </Context>
+  </Operator>
+  <Context Code="OutputColumns">
+    <Context Code="OutputColumn">
+      <Context Code="Column">1</Context>
+      <Context Code="Label">Output</Context>
+      <Context Code="DisplayWidth">1084</Context>
+      <Context Code="ChoiceFormula">null</Context>
+    </Context>
+  </Context>
+  <Context Code="ReturnType">
+    <Context Code="MultipleLineResult">true</Context>
+  </Context>
 </Operator>

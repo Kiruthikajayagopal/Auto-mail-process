@@ -3,6 +3,6 @@
   <Operand Code="ScalarBoolean">Mx#client.TD.postTrade.exchange.confirmation.common.hostServerCheck#Mx</Operand>
   <Operand Code="ScalarString">TAFXNIR3</Operand>
   <!--Operand Code="ScalarString">TH95NIR3</Operand-->
-    <Operand Code="ScalarString">TH73NIR3</Operand>
+  <Operand Code="ScalarString">TH73NIR3</Operand>
 </Operator>
 

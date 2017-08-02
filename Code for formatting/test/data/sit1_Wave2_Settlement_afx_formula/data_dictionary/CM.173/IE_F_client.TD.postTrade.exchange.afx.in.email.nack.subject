@@ -4,10 +4,10 @@
   <!--  toUpdate	-->
   <!--  toUpdate	-->
   <!--  toUpdate	-->
-	<Operand Code="ScalarString">afx nack       [mxFxCashAfxError]</Operand>
+  <Operand Code="ScalarString">afx nack       [mxFxCashAfxError]</Operand>
   <!--  toUpdate	-->
   <!--  toUpdate	-->
   <!--  toUpdate	-->
-	<Operand Code="ScalarString">afx nack       [mxFxCashAfxErrorTest]</Operand>
+  <Operand Code="ScalarString">afx nack       [mxFxCashAfxErrorTest]</Operand>
 </Operator>
 

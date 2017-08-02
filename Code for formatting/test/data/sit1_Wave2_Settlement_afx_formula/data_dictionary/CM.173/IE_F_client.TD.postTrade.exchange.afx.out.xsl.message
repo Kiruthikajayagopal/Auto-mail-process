@@ -1,5 +1,9 @@
 <!-- amdg egalon galone2 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mx="http://murex.com/xslt/common" xmlns:exsl="http://exslt.org/common" xmlns:str="http://exslt.org/strings" version="1.0" exclude-result-prefixes="mx exsl str" extension-element-prefixes="str">
+<xsl:stylesheet 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  xmlns:mx="http://murex.com/xslt/common" 
+  xmlns:exsl="http://exslt.org/common" 
+  xmlns:str="http://exslt.org/strings" version="1.0" exclude-result-prefixes="mx exsl str" extension-element-prefixes="str">
   <xsl:import href="mx.generic.exslt.str.tokenize" />
   <xsl:import href="mx.generic.exslt.str.padding" />
   <xsl:import href="client.TD.postTrade.exchange.afx.misc.xsl.padding" />
@@ -85,8 +89,7 @@
   <xsl:variable name="partyInfo" select="mx:execute-formula('client.TD.postTrade.exchange.confirmation.email.misc.getCounterparty', concat('counterpartyName:', $beneficiaryPartyPartyName))" />
   <xsl:variable name="partyFullName" select="exsl:node-set($partyInfo)/parties/party/partyFullName" />
   <!--
-	<xsl:variable name="contractIdFromTrade" select="normalize-space(mx:execute-formula('client.TD.postTrade.exchange.modifySi.sql.getBaseContractFromTrade', concat('tradeId:', $tradeInternalId)))"/>
-	<xsl:variable name="jobDesc" select="normalize-space(mx:execute-formula('mx.generic.xmlf.dynamicScalarString', 'name:mx.postTrade.fields.job.JobDesc'))"/>
+	<xsl:variable name="contractIdFromTrade" select="normalize-space(mx:execute-formula('client.TD.postTrade.exchange.modifySi.sql.getBaseContractFromTrade', concat('tradeId:', $tradeInternalId)))"/><xsl:variable name="jobDesc" select="normalize-space(mx:execute-formula('mx.generic.xmlf.dynamicScalarString', 'name:mx.postTrade.fields.job.JobDesc'))"/>
 	-->
   <xsl:variable name="overrideArg" select="normalize-space(exsl:node-set($dataFromDlv)/token[2])" />
   <xsl:variable name="creatorId" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/producerId/creatorId)" />
@@ -94,18 +97,15 @@
 	<xsl:variable name="contract" select="mx:execute-formula('client.TD.postTrade.exchange.modifySi.getTradeObject', concat('id:', $contractIdFromTrade,',class:mxContractISINGLE'))"/>
 	-->
   <xsl:variable name="contract" select="mx:execute-formula('client.TD.postTrade.exchange.modifySi.getTradeObject', concat('id:', $creatorId,',version:1,class:mxContractISINGLE'))"/>
- 
-	<xsl:variable name="systemDate" select="exsl:node-set($contract)/trades/trade/tradeInputConditions/systemDate"/>
-	<xsl:variable name="computerTime" select="exsl:node-set($contract)/trades/trade/tradeInputConditions/computerTime"/>
-
+  <xsl:variable name="systemDate" select="exsl:node-set($contract)/trades/trade/tradeInputConditions/systemDate"/>
+  <xsl:variable name="computerTime" select="exsl:node-set($contract)/trades/trade/tradeInputConditions/computerTime"/>
   <xsl:variable name="BEN_ACC" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSettlements/vostroSettlement/userDefinedFields/userDefinedField[fieldLabel='BEN_ACC']/fieldValue)" />
   <xsl:variable name="CSNS_ACC" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSettlements/nostroSettlement/userDefinedFields/userDefinedField[fieldLabel='CSNS_ACC']/fieldValue)" />
   <xsl:variable name="vostro_STL_WAY" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSettlements/vostroSettlement/userDefinedFields/userDefinedField[fieldLabel='STL_WAY']/fieldValue)" />
   <xsl:variable name="nostro_STL_WAY" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSettlements/nostroSettlement/userDefinedFields/userDefinedField[fieldLabel='STL_WAY']/fieldValue)" />
   <xsl:variable name="flowSendReceive" select="normalize-space(/MxML/deliverableFlows/deliverableFlow/deliverableFlowBody/flowCash/flowSendReceive)" />
   <!--
-	<xsl:variable name="const_str_flowSendReceive_Send" select="'Send'"/>
-	<xsl:variable name="const_str_flowSendReceive_Receive" select="'Receive'"/>
+	<xsl:variable name="const_str_flowSendReceive_Send" select="'Send'"/><xsl:variable name="const_str_flowSendReceive_Receive" select="'Receive'"/>
 	-->
   <xsl:variable name="fromAccountIndicator">
     <xsl:choose>
@@ -200,14 +200,7 @@
   </xsl:variable>
   <xsl:variable name="bookingBranch">
     <!--
-		<xsl:choose>
-			<xsl:when test='$fromAccountIndicator = $const_str_indicator_DAS'>		
-				<xsl:value-of select="$fromBranch"/>
-			</xsl:when>
-			<xsl:otherwise>		
-				<xsl:value-of select="$toBranch"/>
-			</xsl:otherwise>
-		</xsl:choose>
+		<xsl:choose><xsl:when test='$fromAccountIndicator = $const_str_indicator_DAS'><xsl:value-of select="$fromBranch"/></xsl:when><xsl:otherwise><xsl:value-of select="$toBranch"/></xsl:otherwise></xsl:choose>
 		-->
     <xsl:choose>
       <!--
@@ -318,9 +311,7 @@
             <xsl:value-of select="$const_str_indicator_override" />
           </const_str_indicator_override>
           <!--
-					<const_str_indicator_afxOverrideIdTmp>
-						<xsl:value-of select="$const_str_indicator_afxOverrideIdTmp"/>
-					</const_str_indicator_afxOverrideIdTmp>
+					<const_str_indicator_afxOverrideIdTmp><xsl:value-of select="$const_str_indicator_afxOverrideIdTmp"/></const_str_indicator_afxOverrideIdTmp>
 					-->
           <const_str_indicator_afxOverrideId>
             <xsl:value-of select="$const_str_indicator_afxOverrideId" />
@@ -347,9 +338,7 @@
             <xsl:value-of select="$tradeInternalId" />
           </tradeInternalId>
           <!--
-					<contractIdFromTrade>
-						<xsl:value-of select="$contractIdFromTrade"/>
-					</contractIdFromTrade>
+					<contractIdFromTrade><xsl:value-of select="$contractIdFromTrade"/></contractIdFromTrade>
 					-->
           <beneficiaryPartyPartyName>
             <xsl:value-of select="$beneficiaryPartyPartyName" />
@@ -410,9 +399,7 @@
           <xsl:value-of select="$dlvFlowDirection" />
         </xsl:attribute>
         <!--
-				<xsl:attribute name="contractIdFromTrade">
-					<xsl:value-of select="$contractIdFromTrade"/>
-				</xsl:attribute>
+				<xsl:attribute name="contractIdFromTrade"><xsl:value-of select="$contractIdFromTrade"/></xsl:attribute>
 				-->
         <xsl:attribute name="contractIdArg">
           <xsl:value-of select="$contractIdArg" />
@@ -430,12 +417,7 @@
           <xsl:value-of select="$outgoingMsgTries" />
         </xsl:attribute>
         <!--
-				<xsl:attribute name="envDataSystemDate">
-					<xsl:value-of select="$envDataSystemDate"/>
-				</xsl:attribute>
-				<xsl:attribute name="envDataSystemTime">
-					<xsl:value-of select="$envDataSystemTime"/>
-				</xsl:attribute>
+				<xsl:attribute name="envDataSystemDate"><xsl:value-of select="$envDataSystemDate"/></xsl:attribute><xsl:attribute name="envDataSystemTime"><xsl:value-of select="$envDataSystemTime"/></xsl:attribute>
 				-->
         <xsl:attribute name="envDataSystemDateTime">
           <xsl:value-of select="$envDataSystemDate" />
@@ -470,8 +452,7 @@
         <messageDataHeaderFiller length="35">messageDataHeaderFiller</messageDataHeaderFiller>
         <bookingBranch length="5" numeric="true">
           <!--
-					<xsl:value-of select="$bookingBranch"/>
-					<xsl:value-of select="$fromBranch"/>
+					<xsl:value-of select="$bookingBranch"/><xsl:value-of select="$fromBranch"/>
 					-->
           <xsl:value-of select="$bookingBranch" />
         </bookingBranch>
@@ -543,8 +524,7 @@
         <!--
 				<userId length='8'>
 				userId
-				</userId>
-				<overrideId length='8'>
+				</userId><overrideId length='8'>
 				-->
         <overrideId>
           <xsl:attribute name="length">
@@ -572,15 +552,7 @@
   </xsl:variable>
   <xsl:template match="/">
     <!--
-		<aaa>		
-			<xsl:for-each select="exsl:node-set($outgoing)/*/payload/*">
-				<xsl:variable name="thisNode" select="."/>
-				<xsl:variable name="thisNodeName" select="local-name($thisNode)"/>
-				<node>
-					<xsl:element name="{$thisNodeName}"/>
-				</node>
-			</xsl:for-each>
-		</aaa>
+		<aaa><xsl:for-each select="exsl:node-set($outgoing)/*/payload/*"><xsl:variable name="thisNode" select="."/><xsl:variable name="thisNodeName" select="local-name($thisNode)"/><node><xsl:element name="{$thisNodeName}"/></node></xsl:for-each></aaa>
 		-->
     <xsl:copy-of select="$outgoing" />
   </xsl:template>

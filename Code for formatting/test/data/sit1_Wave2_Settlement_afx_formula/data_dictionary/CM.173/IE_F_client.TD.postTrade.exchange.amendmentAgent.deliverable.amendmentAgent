@@ -1,51 +1,51 @@
 <?xml version="1.0" ?>
 <!DOCTYPE Operator>
 <Operator Code="BestMatching">
-	<Context Code="InputValues">
-		<Context Code="InputValue">
-			<Context Code="Column">0</Context>
-			<Context Code="Value">Mx#mx.postTrade.fields.xmlflow.WorkflowQueueParameters#Mx</Context>
-			<Context Code="Label">Purpose</Context>
-			<Context Code="DisplayWidth">251</Context>
-			<Context Code="ChoiceFormula">null</Context>
-		</Context>
-	</Context>
-	<Operator Code="OrderBestMatching">
-		<Operand Code="Matrix">
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">Cancellation#Msg</Operand>
-				<Operand Code="ScalarString">p1doc_DLV_P1_cancellationStartingPoint</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">Settlement#Msg</Operand>
-				<Operand Code="ScalarString">p1doc_DLV_P1_startingPoint</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">Settlement#AFXMsg</Operand>
-				<Operand Code="ScalarString">p1doc_DLV_P1_resendAFX</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString">AutoSplit#Msg</Operand>
-				<Operand Code="ScalarString">p1doc_DLV_autoSplitStartingPoint</Operand>
-			</Operand>
-			<Operand Code="Vector">
-				<Operand Code="ScalarString"></Operand>
-				<Operand Code="ScalarString">p1doc_DLV_P1_startingPoint</Operand>
-			</Operand>
-		</Operand>
-		<Context Code="Priorities">
-			<Context Code="Column">0</Context>
-		</Context>
-	</Operator>
-	<Context Code="OutputColumns">
-		<Context Code="OutputColumn">
-			<Context Code="Column">1</Context>
-			<Context Code="Label">OutputColumn</Context>
-			<Context Code="DisplayWidth">900</Context>
-			<Context Code="ChoiceFormula">mx.viewFields.choices.workflow.tasks.exchange</Context>
-		</Context>
-	</Context>
-	<Context Code="ReturnType">
-		<Context Code="MultipleLineResult">false</Context>
-	</Context>
+  <Context Code="InputValues">
+    <Context Code="InputValue">
+      <Context Code="Column">0</Context>
+      <Context Code="Value">Mx#mx.postTrade.fields.xmlflow.WorkflowQueueParameters#Mx</Context>
+      <Context Code="Label">Purpose</Context>
+      <Context Code="DisplayWidth">251</Context>
+      <Context Code="ChoiceFormula">null</Context>
+    </Context>
+  </Context>
+  <Operator Code="OrderBestMatching">
+    <Operand Code="Matrix">
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">Cancellation#Msg</Operand>
+        <Operand Code="ScalarString">p1doc_DLV_P1_cancellationStartingPoint</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">Settlement#Msg</Operand>
+        <Operand Code="ScalarString">p1doc_DLV_P1_startingPoint</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">Settlement#AFXMsg</Operand>
+        <Operand Code="ScalarString">p1doc_DLV_P1_resendAFX</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString">AutoSplit#Msg</Operand>
+        <Operand Code="ScalarString">p1doc_DLV_autoSplitStartingPoint</Operand>
+      </Operand>
+      <Operand Code="Vector">
+        <Operand Code="ScalarString"></Operand>
+        <Operand Code="ScalarString">p1doc_DLV_P1_startingPoint</Operand>
+      </Operand>
+    </Operand>
+    <Context Code="Priorities">
+      <Context Code="Column">0</Context>
+    </Context>
+  </Operator>
+  <Context Code="OutputColumns">
+    <Context Code="OutputColumn">
+      <Context Code="Column">1</Context>
+      <Context Code="Label">OutputColumn</Context>
+      <Context Code="DisplayWidth">900</Context>
+      <Context Code="ChoiceFormula">mx.viewFields.choices.workflow.tasks.exchange</Context>
+    </Context>
+  </Context>
+  <Context Code="ReturnType">
+    <Context Code="MultipleLineResult">false</Context>
+  </Context>
 </Operator>

@@ -1,1 +1,5 @@
-<FormulaConfig><GlobalCachSave>N</GlobalCachSave><FormulaResultRights>N</FormulaResultRights><FormulaResultType>0</FormulaResultType></FormulaConfig>
+<FormulaConfig>
+  <GlobalCachSave>N</GlobalCachSave>
+  <FormulaResultRights>N</FormulaResultRights>
+  <FormulaResultType>0</FormulaResultType>
+</FormulaConfig>
