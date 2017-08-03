@@ -1,0 +1,29 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	version="1.0"
+	exclude-result-prefixes="mx exsl"
+>
+	<xsl:param name="isDebug"/>
+	<xsl:variable name="const_str_error_yes" select="'yes'"/>
+	<xsl:variable name="const_str_error_no" select="'no'"/>
+
+	<xsl:variable name="flowIdNumber" select="normalize-space(mx:execute-formula('client.TD.postTrade.exchange.afx.in.getFlowIdNumber'))"/>
+
+	<xsl:template match="/">
+		<xsl:choose>
+			<xsl:when test="$flowIdNumber = ''">
+				<xsl:value-of select="$const_str_error_no"/>
+			</xsl:when>
+			<xsl:when test="$flowIdNumber = '0.0'">
+				<xsl:value-of select="$const_str_error_no"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$const_str_error_yes"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+</xsl:stylesheet>

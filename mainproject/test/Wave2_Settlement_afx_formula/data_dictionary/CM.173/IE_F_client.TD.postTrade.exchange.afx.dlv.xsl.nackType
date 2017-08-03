@@ -1,0 +1,132 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	xmlns:str="http://exslt.org/strings"
+	version="1.0"
+	exclude-result-prefixes="mx exsl str"
+	extension-element-prefixes="str"
+>
+	<xsl:import href="mx.generic.exslt.str.tokenize"/>
+	<xsl:param name="isDebug"/>
+	<xsl:param name="validLevel"/>
+	<xsl:param name="jobDesc"/>
+	<xsl:param name="afxSubError"/>
+
+	<xsl:variable name="const_val_fieldLength" select="'225'"/>
+	<xsl:variable name="const_val_fieldLength2" select="'50'"/>
+	<xsl:variable name="const_str_delimiter" select="','"/>
+	<xsl:variable name="const_str_semiColon" select="';'"/>
+	<xsl:variable name="const_str_colon" select="':'"/>
+	<xsl:variable name="const_str_error_yes" select="'yes'"/>
+
+	<xsl:variable name="mainErr_errCode" select="$jobDesc"/>
+
+	<xsl:variable name="afxErrorCodesNackType" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.afxErrorCodesNackType', concat('errorCode:', $mainErr_errCode))"/>
+
+	<xsl:template match="/">
+		<xsl:variable name="errorDescTmp" select="normalize-space(exsl:node-set($afxErrorCodesNackType)/row/cell[@alias='errorDesc'])"/>
+		<xsl:variable name="nackType" select="normalize-space(exsl:node-set($afxErrorCodesNackType)/row/cell[@alias='nackType'])"/>
+		<xsl:variable name="mainErr_isCatchAllCondition" select="normalize-space(exsl:node-set($afxErrorCodesNackType)/row/cell[@alias='isCatchAllCondition'])"/>
+
+		<xsl:variable name="subErrorsCodes">
+			<xsl:call-template name="str:tokenize">
+				<xsl:with-param name="string" select="$afxSubError" />
+				<xsl:with-param name="delimiters" select="$const_str_delimiter" />
+			</xsl:call-template>
+		</xsl:variable>
+
+		<xsl:variable name="subErrorsTxt">
+			<xsl:for-each select="exsl:node-set($subErrorsCodes)/*">
+				<!--
+				<xsl:variable name="localName" select="normalize-space(local-name(.))"/>
+				-->
+				<xsl:variable name="errCode" select="normalize-space(./text())"/>
+				<xsl:variable name="errCodeType" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.afxErrorCodesNackType', concat('errorCode:', $errCode))"/>
+				<xsl:variable name="codeTxt" select="normalize-space(exsl:node-set($errCodeType)/row/cell[@alias='errorDesc'])"/>
+				<xsl:variable name="isCatchAllCondition" select="normalize-space(exsl:node-set($errCodeType)/row/cell[@alias='isCatchAllCondition'])"/>
+				<xsl:if test="position() &gt; 1">
+					<xsl:value-of select="$const_str_delimiter"/>
+				</xsl:if>
+				<!--
+				<xsl:value-of select="$codeTxt"/>
+				<xsl:value-of select="$errCode"/>
+				-->
+				<xsl:value-of select="'{'"/>
+				<xsl:if test="'' != $isCatchAllCondition">
+					<xsl:value-of select="$errCode"/>
+					<xsl:value-of select="$const_str_colon"/>
+				</xsl:if>
+				<xsl:value-of select="translate($codeTxt, $const_str_semiColon,'')"/>
+				<xsl:value-of select="'}'"/>
+			</xsl:for-each>
+		</xsl:variable>
+
+		<xsl:variable name="retVal">
+			<xsl:value-of select="$nackType"/>
+			<!--
+			<xsl:choose>
+				<xsl:when test="'' != $errorDescTmp">
+					<xsl:variable name="errorDescTmp2">
+						<xsl:if test="'' != $mainErr_isCatchAllCondition">
+							<xsl:if test="'' != $mainErr_errCode">
+								<xsl:value-of select="$mainErr_errCode"/>
+								<xsl:value-of select="$const_str_colon"/>
+							</xsl:if>
+						</xsl:if>
+						<xsl:value-of select="$errorDescTmp"/>
+					</xsl:variable>
+					<xsl:variable name="errorDesc" select="substring($errorDescTmp2,1,$const_val_fieldLength2)"/>
+					<xsl:variable name="subErrors" select="substring($subErrorsTxt,1,$const_val_fieldLength)"/>
+					<xsl:value-of select="'[JOB_DESCRIPTION='"/>
+					<xsl:value-of select="$errorDesc"/>
+					<xsl:if test="'' != $subErrors">
+						<xsl:value-of select="';'"/>
+						<xsl:value-of select="'AFX_SUBERR='"/>
+						<xsl:value-of select="$subErrors"/>
+					</xsl:if>
+					<xsl:value-of select="']'"/>
+				</xsl:when>
+			</xsl:choose>
+			-->
+		</xsl:variable>
+
+		<!--
+		<aaa>
+			<isDebug>
+				<xsl:value-of select="$isDebug"/>
+			</isDebug>
+			<validLevel>
+				<xsl:value-of select="$validLevel"/>
+			</validLevel>
+			<jobDesc>
+				<xsl:value-of select="$jobDesc"/>
+			</jobDesc>
+			<mainErr_errCode>
+				<xsl:value-of select="$mainErr_errCode"/>
+			</mainErr_errCode>
+			<afxErrorCodesNackType>
+				<xsl:copy-of select="$afxErrorCodesNackType"/>
+			</afxErrorCodesNackType>
+			<subErrorsCodes>
+				<xsl:copy-of select="$subErrorsCodes"/>
+			</subErrorsCodes>
+			<subErrorsTxt>
+				<xsl:copy-of select="$subErrorsTxt"/>
+			</subErrorsTxt>
+			<errorDescTmp>
+				<xsl:value-of select="$errorDescTmp"/>
+			</errorDescTmp>
+			<nackType>
+				<xsl:value-of select="$nackType"/>
+			</nackType>
+			<retVal>
+				<xsl:value-of select="$retVal"/>
+			</retVal>
+		</aaa>
+		-->
+		<xsl:value-of select="$retVal"/>
+	</xsl:template>
+
+</xsl:stylesheet>

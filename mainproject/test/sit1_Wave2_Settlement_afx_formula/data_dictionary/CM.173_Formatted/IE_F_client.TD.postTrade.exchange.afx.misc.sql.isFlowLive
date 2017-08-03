@@ -1,0 +1,14 @@
+-- amdg
+-- maria
+-- egalon galone2
+
+
+SELECT COUNT(*) 
+FROM DLV_CASH_DBF 
+WHERE 1=1
+and M_REFERENCE = MxCTX#flowId#Mx 
+--and M_ORIGIN_REF = MxCTX#flowId#Mx 
+and M_PROD_CVER = 0 
+AND M_REFERENCE NOT IN (SELECT M_BO FROM EVT_IMP_DBF WHERE M__INTID_ = 'MyFyn44375' AND M_CVERSION = 0)
+
+

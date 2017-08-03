@@ -1,0 +1,9 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="Plus">
+	<Operand Code="ScalarString">Salman.Ali@tdsecurities.com;</Operand>
+	<Operand Code="ScalarString">Kirti.Lad@tdsecurities.com;</Operand>
+	<Operand Code="ScalarString">Enrica.Leong@tdsecurities.com;</Operand>
+	<Operand Code="ScalarString">Ranveer.Karan@tdsecurities.com;</Operand>
+	<Operand Code="ScalarString">elwell.galon@tdsecurities.com;</Operand>
+	<Operand Code="ScalarString">Bhaskar.Jakkala@tdsecurities.com;</Operand>
+</Operator>

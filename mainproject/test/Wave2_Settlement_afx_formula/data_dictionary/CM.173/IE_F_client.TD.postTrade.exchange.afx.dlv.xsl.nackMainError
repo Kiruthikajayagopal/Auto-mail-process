@@ -1,0 +1,54 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	xmlns:str="http://exslt.org/strings"
+	version="1.0"
+	exclude-result-prefixes="mx exsl str"
+	extension-element-prefixes="str"
+>
+	<xsl:import href="mx.generic.exslt.str.tokenize"/>
+	<xsl:param name="isDebug"/>
+	<xsl:param name="validLevel"/>
+	<xsl:param name="jobDesc"/>
+	<xsl:param name="stpUdf7"/>
+	<xsl:param name="const_str_override"/>
+	<xsl:param name="const_str_noOverride"/>
+
+	<xsl:variable name="const_val_fieldLength2" select="'50'"/>
+	<xsl:variable name="const_str_delimiter" select="','"/>
+	<xsl:variable name="const_str_semiColon" select="';'"/>
+	<xsl:variable name="const_str_colon" select="':'"/>
+	<xsl:variable name="const_str_error_yes" select="'yes'"/>
+
+	<xsl:variable name="mainErr_errCode" select="$jobDesc"/>
+
+	<xsl:variable name="afxErrorCodesNackType" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.afxErrorCodesNackType', concat('errorCode:', $mainErr_errCode))"/>
+
+	<xsl:template match="/">
+		<xsl:variable name="errorDescTmp" select="normalize-space(exsl:node-set($afxErrorCodesNackType)/row/cell[@alias='errorDesc'])"/>
+		<xsl:variable name="nackType" select="normalize-space(exsl:node-set($afxErrorCodesNackType)/row/cell[@alias='nackType'])"/>
+		<xsl:variable name="mainErr_isCatchAllCondition" select="normalize-space(exsl:node-set($afxErrorCodesNackType)/row/cell[@alias='isCatchAllCondition'])"/>
+
+		<xsl:variable name="retVal">
+			<xsl:choose>
+				<xsl:when test="'' != $errorDescTmp">
+					<xsl:variable name="errorDescTmp2">
+						<xsl:if test="'' != $mainErr_isCatchAllCondition">
+							<xsl:if test="'' != $mainErr_errCode">
+								<xsl:value-of select="$mainErr_errCode"/>
+								<xsl:value-of select="$const_str_colon"/>
+							</xsl:if>
+						</xsl:if>
+						<xsl:value-of select="$errorDescTmp"/>
+					</xsl:variable>
+					<xsl:variable name="errorDesc" select="substring($errorDescTmp2,1,$const_val_fieldLength2)"/>
+					<xsl:value-of select="$errorDesc"/>
+				</xsl:when>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="$retVal"/>
+	</xsl:template>
+
+</xsl:stylesheet>

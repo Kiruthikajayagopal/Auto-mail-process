@@ -1,0 +1,7 @@
+<!-- amdg egalon galone2 -->
+<Operand Code="Vector">
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.overrideType.const.noOverride#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.overrideType.const.override#Mx</Operand>
+  <Operand Code="ScalarString"></Operand>
+</Operand>
+

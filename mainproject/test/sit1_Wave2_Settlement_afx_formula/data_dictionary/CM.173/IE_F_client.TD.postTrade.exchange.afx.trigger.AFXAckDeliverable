@@ -1,0 +1,23 @@
+<Operator Code="And">
+	<Operator Code="Equal">
+		<Operand Code="ScalarField">DLV_FLOW_ID</Operand>
+    <!--
+		<Operand Code="ScalarDouble">Mx#client.TD.afx.incoming.common.ackNack.flowID#Mx</Operand>
+    -->
+		<Operand Code="ScalarDouble">Mx#client.TD.postTrade.exchange.afx.in.getFlowId#Mx</Operand>
+	</Operator>
+	<Operator Code="Equal">
+		<Operand Code="ScalarField">STATUS_TAKEN</Operand>
+		<Operand Code="ScalarString">N</Operand>
+	</Operator>
+  <Operator Code="Or">
+  	<Operator Code="Equal">
+		<Operand Code="ScalarField">STP_STATUS_VALIDATION_LEVEL</Operand>
+		<Operand Code="ScalarString">Nack</Operand>
+    </Operator>
+	<Operator Code="Equal">
+		<Operand Code="ScalarField">STP_STATUS_VALIDATION_LEVEL</Operand>
+		<Operand Code="ScalarString">Released</Operand>
+	</Operator>
+  	</Operator>
+</Operator>

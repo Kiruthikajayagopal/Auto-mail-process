@@ -1,0 +1,8 @@
+<Operator Code="If">
+    <Operator Code="GreaterOrEqualTo">
+      <Operand Code="ScalarDouble">Mx#mx.postTrade.fields.standardWorkflow.ChasingTrials#Mx</Operand>
+       <Operand Code="ScalarDouble">Mx#mx.postTrade.fields.standardWorkflow.totalChasingTrials#Mx</Operand>
+    </Operator>
+  <Operand Code="ScalarString">Continue</Operand>
+  <Operand Code="ScalarString">Chase</Operand>
+</Operator>
