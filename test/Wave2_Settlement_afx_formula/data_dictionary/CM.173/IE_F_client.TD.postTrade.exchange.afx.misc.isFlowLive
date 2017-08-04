@@ -1,0 +1,20 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="If">
+	<Operator Code="GreaterThan">
+		<Operand Code="ScalarDouble">Mx#client.TD.postTrade.exchange.afx.misc.sql.isFlowLive{flowId:Contexts.flowId}#Mx</Operand>
+		<Operand Code="ScalarDouble">0</Operand>
+	</Operator>
+	<Operand Code="ScalarString">true</Operand>
+	<Operand Code="ScalarString">false</Operand>
+</Operator>
+
+
+<!--
+<Operator Code="CatchException">
+	<Operator Code="GreaterThan">
+		<Operand Code="ScalarDouble">Mx#client.TD.postTrade.exchange.afx.misc.sql.isFlowLive{flowId:Contexts.flowId}#Mx</Operand>
+		<Operand Code="ScalarDouble">0</Operand>
+	</Operator>
+	<Operand Code="ScalarBoolean">false</Operand>
+</Operator>
+-->

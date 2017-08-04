@@ -1,0 +1,55 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:mx="http://murex.com/xslt/common" xmlns:exsl="http://exslt.org/common" xmlns:str="http://exslt.org/strings" version="1.0" exclude-result-prefixes="mx str exsl">
+	<xsl:import href="client.TD.postTrade.exchange.confirmation.email.xsl.purchaseSellSummary" />
+	<xsl:import href="mx.generic.exslt.str.padding" />
+	<xsl:param name="isDebug"/>
+	<xsl:variable name="const_val_1" select="'1'"/>
+
+	<xsl:template match="/">
+		<test>
+			<aaa>
+				<xsl:call-template name="padding">
+					<xsl:with-param name="strToPad" select="'12'" />
+					<xsl:with-param name="totalLength" select="'12'" />
+				</xsl:call-template>
+			</aaa>
+			<bbb>
+				<xsl:call-template name="padding">
+					<xsl:with-param name="strToPad" select="'12'" />
+					<xsl:with-param name="totalLength" select="'12'" />
+					<xsl:with-param name="isRighJustified" select="'N'" />
+				</xsl:call-template>
+			</bbb>
+		</test>
+	</xsl:template>
+
+	<xsl:template name="padding">
+		<xsl:param name="totalLength" select="4" />
+		<xsl:param name="padchar" select="'0'" />
+		<xsl:param name="strToPad" />
+		<xsl:param name="isRighJustified" select="'Y'" />
+		<xsl:variable name="strToPadToUse" select="normalize-space($strToPad)" />
+		<xsl:variable name="length" select="string-length($strToPadToUse)" />
+		<xsl:choose>
+			<xsl:when test=" $length &gt;= $totalLength ">
+				<xsl:value-of select="$strToPadToUse" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:variable name="diffLengthTmp" select="$length - $totalLength" />
+				<xsl:variable name="diffLength" select="$diffLengthTmp*($diffLengthTmp >=0) - $diffLengthTmp*($diffLengthTmp &lt; 0)" />
+					<xsl:if test="'Y' != $isRighJustified">
+						<xsl:value-of select="$strToPadToUse" />
+					</xsl:if>
+					<xsl:call-template name="str:padding">
+						<xsl:with-param name="length" select="$diffLength" />
+						<xsl:with-param name="chars" select="$padchar" />
+					</xsl:call-template>
+					<xsl:if test="'Y' = $isRighJustified">
+						<xsl:value-of select="$strToPadToUse" />
+					</xsl:if>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:template>
+
+	</xsl:stylesheet>
+	

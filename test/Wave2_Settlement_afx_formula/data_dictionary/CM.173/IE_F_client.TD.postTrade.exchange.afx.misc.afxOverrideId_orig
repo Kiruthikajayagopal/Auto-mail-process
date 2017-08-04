@@ -1,0 +1,11 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="If">
+	<Operand Code="ScalarBoolean">Mx#client.TD.postTrade.exchange.confirmation.common.hostServerCheck#Mx</Operand>
+	<Operand Code="ScalarString">OverrideId_undefined</Operand>
+	<Operand Code="ScalarString">LEDREK3</Operand>
+	<!--
+	<Operand Code="ScalarString">ABCD123</Operand>
+	<Operand Code="ScalarString">CHIUP5</Operand>
+	<Operand Code="ScalarString">LEDREK3</Operand>
+	-->
+</Operator>

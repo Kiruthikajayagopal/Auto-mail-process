@@ -1,0 +1,13 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="If">
+  <Operand Code="ScalarBoolean">Mx#client.TD.postTrade.exchange.confirmation.common.hostServerCheck#Mx</Operand>
+  <!--  toUpdate	-->
+  <!--  toUpdate	-->
+  <!--  toUpdate	-->
+	<Operand Code="ScalarString">FXTS-WSSSupport@tdsecurities.com</Operand>
+  <!--  toUpdate	-->
+  <!--  toUpdate	-->
+  <!--  toUpdate	-->
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.in.email.nack.toEmailHostCheckTest#Mx</Operand>
+</Operator>
+

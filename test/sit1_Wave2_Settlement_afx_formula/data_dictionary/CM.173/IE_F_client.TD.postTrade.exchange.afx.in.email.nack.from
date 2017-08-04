@@ -1,0 +1,29 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="If">
+	<Operand Code="ScalarBoolean">Mx#client.TD.postTrade.exchange.confirmation.common.hostServerCheck#Mx</Operand>
+	<Operator Code="Plus">
+		<Operand Code="ScalarString">mx_afx___prd_support</Operand>
+		<Operand Code="ScalarString">&lt;</Operand>
+		<Operand Code="ScalarString">TDFXTSWSS@tdsecurities.com</Operand>
+		<Operand Code="ScalarString">&gt;</Operand>
+	</Operator>
+	<Operator Code="Plus">
+		<Operand Code="ScalarString">mx_afx___testEnv</Operand>
+		<Operand Code="ScalarString">&lt;</Operand>
+		<Operator Code="If">
+			<Operand Code="ScalarBoolean">Mx#client.TD.postTrade.exchange.confirmation.common.hostServerCheck#Mx</Operand>
+			<Operand Code="ScalarString">Mx#mx.trade.nFin.our.Email#Mx</Operand>
+			<Operator Code="Plus">
+				<Operand Code="ScalarString">scfImport_</Operand>
+				<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.tradeImport.jmsDestination#Mx</Operand>
+				<Operand Code="ScalarString">_NoReply@</Operand>
+				<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.tradeImport.jmsDestination#Mx</Operand>
+				<Operand Code="ScalarString">.NoReply.fxCash.murex.tds.com</Operand>
+			</Operator>
+		</Operator>
+		<Operand Code="ScalarString">&gt;</Operand>
+	</Operator>
+</Operator> 
+
+<!--
+-->

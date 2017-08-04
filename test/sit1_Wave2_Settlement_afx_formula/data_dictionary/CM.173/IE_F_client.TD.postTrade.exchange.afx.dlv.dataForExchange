@@ -1,0 +1,31 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="Substr">
+	<Operator Code="Plus">
+		<!--
+		-->
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+		<!--
+		<Operand Code="ScalarString">Mx#mx.postTrade.fields.job.JobDesc#Mx</Operand>
+		-->
+		<Operand Code="ScalarString">Mx#mx.postTrade.fields.stp.UDF7#Mx</Operand>
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+		<Operand Code="ScalarString">Mx#mx.postTrade.fields.stp.UDF8#Mx</Operand>
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+		<Operand Code="ScalarField">DLV_SEND_RECEIVE</Operand>
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+		<Operand Code="ScalarString">Mx#mx.postTrade.fields.stp.LastValidator#Mx</Operand>
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+		<Operand Code="ScalarField">STP_LAST_VALIDATOR_GROUP</Operand>
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+		<Operand Code="ScalarString">Mx#mx.postTrade.fields.stp.LastValidationDate#Mx</Operand>
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+		<Operand Code="ScalarString">Mx#mx.postTrade.fields.stp.LastValidationTime#Mx</Operand>
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+		<Operand Code="ScalarString">Mx#mx.docProperties.UserName#Mx</Operand>
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+		<Operand Code="ScalarString">Mx#mx.docProperties.UserGroup#Mx</Operand>
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.const.str.pipe#Mx</Operand>
+	</Operator>
+	<Operand Code="ScalarDouble">0</Operand>
+	<Operand Code="ScalarDouble">255</Operand>
+</Operator>

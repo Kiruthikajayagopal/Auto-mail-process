@@ -1,0 +1,88 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	version="1.0"
+	exclude-result-prefixes="mx exsl"
+>
+	<xsl:param name="isDebug"/>
+	<xsl:param name="errorCodeDelimiter"/>
+
+	<xsl:variable name="const_str_error_yes" select="'yes'"/>
+	<xsl:variable name="const_str_error_no" select="'no'"/>
+	<xsl:variable name="const_str_email" select="'email'"/>
+	<xsl:variable name="const_str_emailSupport" select="'emailSupport'"/>
+
+	<!--
+	-->
+	<xsl:variable name="errorInfo" select="mx:execute-formula('client.TD.postTrade.exchange.afx.in.getErrors')"/>
+
+	<xsl:template match="/">
+		<xsl:variable name="inDoc" select="."/>
+
+		<xsl:variable name="returnCode" select="normalize-space(exsl:node-set($errorInfo)/returnCode)"/>
+		<xsl:variable name="mainError" select="normalize-space(exsl:node-set($errorInfo)/mainError)"/>
+
+		<xsl:variable name="retVal">
+			<xsl:choose>
+				<xsl:when test="$returnCode = '000'">
+					<xsl:value-of select="$const_str_error_no"/>
+				</xsl:when>
+				<xsl:when test="$returnCode = '00'">
+					<xsl:value-of select="$const_str_error_no"/>
+				</xsl:when>
+				<xsl:when test="$returnCode = '0'">
+					<xsl:value-of select="$const_str_error_no"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<Line>
+						<Col1 Ftype="C">
+							<xsl:value-of select="$const_str_error_yes"/>
+							<xsl:value-of select="'[JOB_DESCRIPTION='"/>
+							<xsl:value-of select="$mainError"/>
+							<xsl:value-of select="']'"/>
+						</Col1>
+					</Line>
+
+					<xsl:variable name="errCodeType" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.afxErrorCodesNackType', concat('errorCode:', $mainError))"/>
+					<xsl:variable name="supportTeamIndicator" select="normalize-space(exsl:node-set($errCodeType)/row/cell[@alias='supportTeam'])"/>
+
+					<xsl:if test="$const_str_email = $supportTeamIndicator">
+						<Line>
+							<Col1 Ftype="C">
+								<xsl:value-of select="$const_str_emailSupport"/>
+							</Col1>
+						</Line>
+					</xsl:if>
+
+					<!--
+					<xsl:value-of select="';[JOB_DESCRIPTION_LABEL='"/>
+					<xsl:value-of select="$ValidationsResults_ToAcctNum"/>
+					<xsl:value-of select="']'"/>
+					-->
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+
+		<xsl:copy-of select="$retVal"/>
+
+		<!--
+		<aaa>
+			<returnCode>
+				<xsl:value-of select="$returnCode"/>
+			</returnCode>
+			<mainError>
+				<xsl:value-of select="$mainError"/>
+			</mainError>
+			<retVal>
+				<xsl:value-of select="$retVal"/>
+			</retVal>
+			<bbb>
+				<xsl:copy-of select="$errorInfo"/>
+			</bbb>
+		</aaa>
+		-->
+	</xsl:template>
+
+</xsl:stylesheet>

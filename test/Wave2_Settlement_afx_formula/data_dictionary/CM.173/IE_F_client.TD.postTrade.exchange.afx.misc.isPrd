@@ -1,0 +1,6 @@
+<Operator Code="Equal">
+	<!--Item1-->
+	<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.misc.thisEnv#Mx</Operand>
+	<!--Item2-->
+	<Operand Code="ScalarString">prd1</Operand>
+</Operator>
