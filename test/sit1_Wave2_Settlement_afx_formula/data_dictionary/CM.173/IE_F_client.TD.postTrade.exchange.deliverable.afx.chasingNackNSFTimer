@@ -1,0 +1,19 @@
+<Operator Code="If">
+  <Operand Code="ScalarBoolean">Mx#client.TD.postTrade.exchange.confirmation.common.hostServerCheck#Mx</Operand>
+  <Operator Code="Multiply">
+    <Operand Code="ScalarDouble">60</Operand>
+    <Operand Code="ScalarDouble">60</Operand>
+    <Operand Code="ScalarDouble">1000</Operand>
+  </Operator>
+  <Operator Code="Multiply">
+    <!-- Minutes to Wait -->
+		<!--
+    <Operand Code="ScalarDouble">0.5</Operand>
+		-->
+    <Operand Code="ScalarDouble">5</Operand>
+    <!-- Convert to seconds -->
+    <Operand Code="ScalarDouble">60</Operand>
+    <!-- Convert to milliseconds -->
+    <Operand Code="ScalarDouble">1000</Operand>
+  </Operator>
+</Operator>

@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Operator>
+<Operator Code="BestMatching">
+	<Context Code="InputValues">
+		<Context Code="InputValue">
+			<Context Code="Column">0</Context>
+			<Context Code="Value">Mx#mx.postTrade.fields.stp.ValidLevel#Mx</Context>
+			<Context Code="Label">AckNack</Context>
+			<Context Code="DisplayWidth">172</Context>
+			<Context Code="ChoiceFormula">client.TD.postTrade.exchange.afx.types.ackNackType.list</Context>
+		</Context>
+		<Context Code="InputValue">
+			<Context Code="Column">1</Context>
+			<Context Code="Value">Mx#mx.postTrade.fields.job.JobDesc#Mx</Context>
+			<Context Code="Label">NackDetails</Context>
+			<Context Code="DisplayWidth">88</Context>
+			<Context Code="ChoiceFormula">null</Context>
+		</Context>
+	</Context>
+	<Operator Code="OrderBestMatching">
+		<Operand Code="Matrix">
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">Ack</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Ack</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">Nack</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.dlv.xsl.nackType#Mx</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.dlv.xsl.nackType#Mx</Operand>
+			</Operand>
+		</Operand>
+		<Context Code="Priorities">
+			<Context Code="Column">0</Context>
+			<Context Code="Column">1</Context>
+		</Context>
+	</Operator>
+	<Context Code="OutputColumns">
+		<Context Code="OutputColumn">
+			<Context Code="Column">2</Context>
+			<Context Code="Label">Output</Context>
+			<Context Code="DisplayWidth">811</Context>
+			<Context Code="ChoiceFormula">null</Context>
+		</Context>
+	</Context>
+	<Context Code="ReturnType">
+		<Context Code="MultipleLineResult">false</Context>
+	</Context>
+</Operator>

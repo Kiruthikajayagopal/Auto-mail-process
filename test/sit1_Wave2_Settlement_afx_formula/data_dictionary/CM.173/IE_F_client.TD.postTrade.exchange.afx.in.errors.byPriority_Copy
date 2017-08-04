@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Operator>
+<Operator Code="BestMatching">
+	<Context Code="InputValues">
+		<Context Code="InputValue">
+			<Context Code="Column">0</Context>
+			<Context Code="Value">MxCTX#priority#Mx</Context>
+			<Context Code="Label">priority</Context>
+			<Context Code="DisplayWidth">134</Context>
+			<Context Code="ChoiceFormula">null</Context>
+		</Context>
+	</Context>
+	<Operator Code="OrderBestMatching">
+		<Operand Code="Matrix">
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">02</Operand>
+				<Operand Code="ScalarString">Freeze</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">03</Operand>
+				<Operand Code="ScalarString">AccountStopped</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">06</Operand>
+				<Operand Code="ScalarString">FullAccountOnHold</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">05</Operand>
+				<Operand Code="ScalarString">AccountNotFound</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">07</Operand>
+				<Operand Code="ScalarString">PartialAccountOnHold</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">04</Operand>
+				<Operand Code="ScalarString">AccountStatusClosedAccount</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">08</Operand>
+				<Operand Code="ScalarString">CDIC_Restricted</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">09</Operand>
+				<Operand Code="ScalarString">CDA_AutomaticTransferNotAvailable</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">10</Operand>
+				<Operand Code="ScalarString">CDA_MirroAccount</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">11</Operand>
+				<Operand Code="ScalarString">CDA_NoCreditFeature</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">12</Operand>
+				<Operand Code="ScalarString">NSF</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">13</Operand>
+				<Operand Code="ScalarString">NackNoAction</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">01</Operand>
+				<Operand Code="ScalarString">CourtOrder</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Error</Operand>
+			</Operand>
+		</Operand>
+		<Context Code="Priorities">
+			<Context Code="Column">0</Context>
+		</Context>
+	</Operator>
+	<Context Code="OutputColumns">
+		<Context Code="OutputColumn">
+			<Context Code="Column">1</Context>
+			<Context Code="Label">Output</Context>
+			<Context Code="DisplayWidth">1003</Context>
+			<Context Code="ChoiceFormula">client.TD.postTrade.exchange.afx.types.nackType.list</Context>
+		</Context>
+	</Context>
+	<Context Code="ReturnType">
+		<Context Code="MultipleLineResult">false</Context>
+	</Context>
+</Operator>

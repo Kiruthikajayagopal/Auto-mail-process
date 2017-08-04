@@ -1,0 +1,19 @@
+<Operator Code="If">
+  <Operator Code="And">
+    <!--Using total chasing trials to mark as chasing completed-->
+    <Operator Code="Different">
+      <!--Item1-->
+      <Operand Code="ScalarDouble">Mx#mx.postTrade.fields.standardWorkflow.totalChasingTrials#Mx</Operand>
+      <!--Item2-->
+      <Operand Code="ScalarDouble">-1</Operand>
+    </Operator>
+    <!--Before 7pm-->
+    <Operator Code="LessThan">
+      <Operand Code="ScalarDouble">Mx#public.postTrade.deliverable.routing.release.systemTimeScalarDouble#Mx</Operand>
+      <Operand Code="ScalarDouble">190000</Operand>
+    </Operator>
+  </Operator>
+  <Operand Code="ScalarString">Chase</Operand>
+  <Operand Code="ScalarString">Continue</Operand>
+</Operator>
+

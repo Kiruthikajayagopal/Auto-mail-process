@@ -1,0 +1,12 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="And">
+  <Operator Code="Equal">
+    <Operand Code="ScalarField">XMLFLOW_CONTENT_TYPE</Operand>
+    <Operand Code="ScalarString">AFXOUT.XML</Operand>
+  </Operator>
+  <Operator Code="Equal">
+    <Operand Code="ScalarField">XMLFLOW_GRAMMAR_NAME</Operand>
+    <Operand Code="ScalarString">MXML.DTD</Operand>
+  </Operator>
+</Operator>
+

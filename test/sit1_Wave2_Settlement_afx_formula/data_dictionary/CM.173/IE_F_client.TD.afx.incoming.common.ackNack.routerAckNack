@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Operator>
+<Operator Code="BestMatching">
+	<Context Code="InputValues">
+		<Context Code="InputValue">
+			<Context Code="Column">0</Context>
+			<Context Code="Value">Mx#client.TD.afx.incoming.common.ackNack.status#Mx</Context>
+			<Context Code="Label">AckNack</Context>
+			<Context Code="DisplayWidth">10</Context>
+			<Context Code="ChoiceFormula">null</Context>
+		</Context>
+	</Context>
+	<Operator Code="OrderBestMatching">
+		<Operand Code="Matrix">
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">ACK</Operand>
+				<Operand Code="ScalarString">Ack</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString">NACK</Operand>
+				<Operand Code="ScalarString">Nack</Operand>
+			</Operand>
+		</Operand>
+		<Context Code="Priorities">
+			<Context Code="Column">0</Context>
+		</Context>
+	</Operator>
+	<Context Code="OutputColumns">
+		<Context Code="OutputColumn">
+			<Context Code="Column">1</Context>
+			<Context Code="Label">Output</Context>
+			<Context Code="DisplayWidth">10</Context>
+			<Context Code="ChoiceFormula">null</Context>
+		</Context>
+	</Context>
+	<Context Code="ReturnType">
+		<Context Code="MultipleLineResult">false</Context>
+	</Context>
+</Operator>

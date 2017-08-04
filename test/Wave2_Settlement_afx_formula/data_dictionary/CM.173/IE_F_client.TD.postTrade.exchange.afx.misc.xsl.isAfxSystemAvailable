@@ -1,0 +1,72 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	version="1.0"
+	exclude-result-prefixes="mx exsl"
+>
+	<xsl:param name="isDebug"/>
+	<xsl:param name="currentTime"/>
+
+	<xsl:variable name="const_val_startTime" select="'070000'"/>
+	<!--
+	<xsl:variable name="const_val_midnight"  select="'240000'"/>
+	-->
+	<xsl:variable name="const_val_midnight"  select="'235000'"/>
+	<xsl:variable name="const_str_true" select="'true'"/>
+	<xsl:variable name="const_str_false" select="'false'"/>
+
+	<xsl:variable name="currentTimeToUse">
+		<xsl:value-of select="substring($currentTime,1,2)"/>
+		<xsl:value-of select="substring($currentTime,4,2)"/>
+		<xsl:value-of select="substring($currentTime,7,2)"/>
+	</xsl:variable>
+
+	<xsl:template match="/">
+		<!--
+		<xsl:variable name="currentDate" select="mx:execute-formula('mx.postTrade.fields.stp.StatusDate')"/>
+		<xsl:variable name="currentDate" select="mx:execute-formula('mx.envData.systemDate')"/>
+		-->
+		<xsl:variable name="retVal">
+			<xsl:choose>
+				<xsl:when test="
+				($currentTimeToUse &gt; $const_val_startTime)
+				and
+				($currentTimeToUse &lt; $const_val_midnight)
+				">
+					<xsl:value-of select="$const_str_true"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$const_str_false"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		
+		<xsl:value-of select="$retVal"/>
+		
+		<!--
+		<egDebug>
+			<currentTime>
+				<xsl:value-of select="$currentTime"/>
+			</currentTime>
+			<currentTimeToUse>
+				<xsl:value-of select="$currentTimeToUse"/>
+			</currentTimeToUse>
+			<greaterThan>
+				<xsl:value-of select="($currentTimeToUse &gt; $const_val_startTime)"/>
+			</greaterThan>
+			<const_val_startTime>
+				<xsl:value-of select="$const_val_startTime"/>
+			</const_val_startTime>
+			<const_val_midnight>
+				<xsl:value-of select="$const_val_midnight"/>
+			</const_val_midnight>
+			<retVal>
+				<xsl:value-of select="$retVal"/>
+			</retVal>
+		</egDebug>
+		-->
+	</xsl:template>
+
+</xsl:stylesheet>

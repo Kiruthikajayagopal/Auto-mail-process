@@ -1,0 +1,221 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Operator>
+<Operator Code="BestMatching">
+	<Context Code="InputValues">
+		<Context Code="InputValue">
+			<Context Code="Column">0</Context>
+			<Context Code="Value">MxCTX#MWD_TASK_CODE#Mx</Context>
+			<Context Code="Label">taskCode</Context>
+			<Context Code="DisplayWidth">23</Context>
+			<Context Code="ChoiceFormula">mx.mxmlExchange.dispatching.taskCode</Context>
+		</Context>
+		<Context Code="InputValue">
+			<Context Code="Column">1</Context>
+			<Context Code="Value">MxCTX#MWD_TYPE_CODE#Mx</Context>
+			<Context Code="Label">typeCode</Context>
+			<Context Code="DisplayWidth">26</Context>
+			<Context Code="ChoiceFormula">mx.mxmlExchange.dispatching.typeCode</Context>
+		</Context>
+		<Context Code="InputValue">
+			<Context Code="Column">2</Context>
+			<Context Code="Value">MxCTX#MWD_CATEGORY_CODE#Mx</Context>
+			<Context Code="Label">categoryCode</Context>
+			<Context Code="DisplayWidth">28</Context>
+			<Context Code="ChoiceFormula">mx.mxmlExchange.dispatching.categoryCode</Context>
+		</Context>
+		<Context Code="InputValue">
+			<Context Code="Column">3</Context>
+			<Context Code="Value">MxCTX#MWD_SHEET_CODE#Mx</Context>
+			<Context Code="Label">sheetCode</Context>
+			<Context Code="DisplayWidth">134</Context>
+			<Context Code="ChoiceFormula">mx.mxmlExchange.dispatching.sheetCode</Context>
+		</Context>
+		<Context Code="InputValue">
+			<Context Code="Column">4</Context>
+			<Context Code="Value">MxCTX#MWD_LOGICAL_SUBCODE#Mx</Context>
+			<Context Code="Label">logicalSubcode</Context>
+			<Context Code="DisplayWidth">38</Context>
+			<Context Code="ChoiceFormula">mx.mxmlExchange.dispatching.logicalSubcode</Context>
+		</Context>
+		<Context Code="InputValue">
+			<Context Code="Column">5</Context>
+			<Context Code="Value">MxCTX#MWD_LOGICAL_CODE#Mx</Context>
+			<Context Code="Label">logicalCode</Context>
+			<Context Code="DisplayWidth">27</Context>
+			<Context Code="ChoiceFormula">mx.mxmlExchange.dispatching.logicalCode</Context>
+		</Context>
+	</Context>
+	<Operator Code="OrderBestMatching">
+		<Operand Code="Matrix">
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxOut</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_JMS_OUT</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxInJms1</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_JMS_IN_1</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxInJms2</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_JMS_IN_2</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxInJms3</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_JMS_IN_3</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxInJms4</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_JMS_IN_4</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxIn</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_IN</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxErrJms1</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_JMS_ERR_1</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxErrJms2</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_JMS_ERR_2</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxErrJms3</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_JMS_ERR_3</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">exgAfxErrJms4</Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER.AFX</Operand>
+				<Operand Code="ScalarString">LAUNCHER_AFX_JMS_ERR_4</Operand>
+			</Operand>
+			<Operand Code="Vector">
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString"></Operand>
+				<Operand Code="ScalarString">Remote</Operand>
+				<Operand Code="ScalarString">MX</Operand>
+				<Operand Code="ScalarString">MXMLEXCHANGE.LAUNCHER</Operand>
+				<Operand Code="ScalarString"></Operand>
+			</Operand>
+		</Operand>
+		<Context Code="Priorities">
+			<Context Code="Column">0</Context>
+			<Context Code="Column">1</Context>
+			<Context Code="Column">2</Context>
+			<Context Code="Column">3</Context>
+			<Context Code="Column">4</Context>
+			<Context Code="Column">5</Context>
+		</Context>
+	</Operator>
+	<Context Code="OutputColumns">
+		<Context Code="OutputColumn">
+			<Context Code="Column">6</Context>
+			<Context Code="Label">executionType</Context>
+			<Context Code="DisplayWidth">156</Context>
+			<Context Code="ChoiceFormula">mx.mxmlExchange.dispatching.executionType</Context>
+		</Context>
+		<Context Code="OutputColumn">
+			<Context Code="Column">7</Context>
+			<Context Code="Label">platformName</Context>
+			<Context Code="DisplayWidth">101</Context>
+			<Context Code="ChoiceFormula">null</Context>
+		</Context>
+		<Context Code="OutputColumn">
+			<Context Code="Column">8</Context>
+			<Context Code="Label">processNickname</Context>
+			<Context Code="DisplayWidth">270</Context>
+			<Context Code="ChoiceFormula">null</Context>
+		</Context>
+		<Context Code="OutputColumn">
+			<Context Code="Column">9</Context>
+			<Context Code="Label">installationCode</Context>
+			<Context Code="DisplayWidth">269</Context>
+			<Context Code="ChoiceFormula">null</Context>
+		</Context>
+	</Context>
+	<Context Code="ReturnType">
+		<Context Code="MultipleLineResult">false</Context>
+	</Context>
+</Operator>

@@ -1,0 +1,147 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	version="1.0"
+	exclude-result-prefixes="mx exsl"
+>
+	<xsl:param name="isDebug"/>
+	<xsl:param name="errorCodeDelimiter"/>
+
+	<xsl:variable name="const_val_1" select="'1'"/>
+
+	<xsl:template match="/">
+		<xsl:variable name="inDoc" select="."/>
+		<xsl:variable name="errorInfo" >
+			<xsl:call-template name="getErrors">
+				<xsl:with-param name="inDoc" select="$inDoc" />
+				<xsl:with-param name="errorCodeDelimiter" select="$errorCodeDelimiter" />
+			</xsl:call-template>
+		</xsl:variable>
+		<aaa>
+			<xsl:copy-of select="$errorInfo"/>
+		</aaa>
+	</xsl:template>
+
+	<xsl:template name="getErrors">
+		<xsl:param name="inDoc"/>
+		<xsl:param name="errorCodeDelimiter" select="','"/>
+		<xsl:variable name="const_str_prefix_validationsResults" select="'ValidationsResults_'"/>
+		<xsl:variable name="const_val_fieldLength" select="'225'"/>
+		<xsl:variable name="const_val_fieldLength2" select="'50'"/>
+		<xsl:variable name="const_str_semiColon" select="';'"/>
+
+		<xsl:variable name="byPriority" select="document('client.TD.postTrade.exchange.afx.in.errors.byPriority')"/>
+		<xsl:variable name="byPriorityErrorCodes" select="document('client.TD.postTrade.exchange.afx.in.errors.priorityErrorCodes')"/>
+
+		<xsl:variable name="incomingErrors" >
+			<incomingErrors>
+				<xsl:for-each select="exsl:node-set($inDoc)/fromAfx/*">
+					<xsl:variable name="localName" select="normalize-space(local-name(.))"/>
+					<xsl:variable name="value" select="normalize-space(./text())"/>
+					<xsl:if test="starts-with($localName, $const_str_prefix_validationsResults)">
+						<xsl:if test="('' != $value) and ($value != 0)">
+							<xsl:element name="code">
+								<xsl:value-of select="$value"/>
+							</xsl:element>
+						</xsl:if>
+					</xsl:if>
+				</xsl:for-each>
+			</incomingErrors>
+		</xsl:variable>
+
+		<xsl:variable name="priorities" >
+			<priorities>
+				<xsl:for-each select="exsl:node-set($byPriority)/Operator/Operator/Operand/*[not(.=preceding::*)]">
+					<xsl:sort select="normalize-space(./Operand[1])"/>
+					<xsl:sort select="normalize-space(./Operand[1])"/>
+					<xsl:variable name="priorityNumber" select="normalize-space(./Operand[1])"/>
+					<xsl:variable name="priorityErrorCode" select="normalize-space(./Operand[2])"/>
+					<xsl:if test="'' != $priorityNumber">
+						<xsl:if test="exsl:node-set($incomingErrors)/incomingErrors/code[text()=$priorityErrorCode]">
+							<xsl:element name="item">
+								<xsl:attribute name="sequence">
+									<xsl:value-of select="$priorityNumber"/>
+								</xsl:attribute>
+								<xsl:attribute name="errorCode">
+									<xsl:value-of select="$priorityErrorCode"/>
+								</xsl:attribute>
+								<xsl:element name="detected">
+									<xsl:value-of select="$priorityErrorCode"/>
+								</xsl:element>
+							</xsl:element>
+						</xsl:if>	
+					</xsl:if>					
+				</xsl:for-each>
+			</priorities>
+		</xsl:variable>
+
+		<xsl:variable name="mainError" >
+			<mainError>
+				<xsl:variable name="tmp1" >
+					<xsl:for-each select="exsl:node-set($priorities)/priorities/item[detected]/@errorCode">
+						<xsl:if test="position()=1">
+							<xsl:value-of select="."/>
+						</xsl:if>
+					</xsl:for-each>
+				</xsl:variable>
+				<xsl:variable name="tmp2" >
+					<xsl:choose>
+						<xsl:when test="'' != $tmp1">
+							<xsl:value-of select="$tmp1"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:variable name="tmp2" select="exsl:node-set($inDoc)/fromAfx/ErrorMessage"/>
+							<xsl:value-of select="translate($tmp2, $const_str_semiColon,'')"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				<xsl:variable name="retVal" select="substring($tmp2,1,$const_val_fieldLength2)"/>
+				<xsl:value-of select="$retVal"/>
+			</mainError>
+		</xsl:variable>
+
+		<xsl:variable name="secondaryErrors" >
+			<secondaryErrors>
+				<xsl:variable name="secondaryErrorsTmp" >
+					<xsl:for-each select="exsl:node-set($priorities)/priorities/item[detected]/@errorCode">
+						<xsl:if test="position() &gt; 2">
+							<xsl:value-of select="$errorCodeDelimiter"/>
+						</xsl:if>
+						<xsl:if test="position()!=1">
+							<xsl:variable name="value" select="normalize-space(.)"/>
+							<xsl:value-of select="$value"/>
+						</xsl:if>
+					</xsl:for-each>
+				</xsl:variable>
+				<xsl:variable name="retVal" select="substring($secondaryErrorsTmp,1,$const_val_fieldLength)"/>
+				<xsl:value-of select="$retVal"/>
+			</secondaryErrors>
+		</xsl:variable>
+
+		<errorInfo>
+			<xsl:if test="$const_val_1 = $isDebug">
+				<egDebug>
+					<xsl:copy-of select="$inDoc"/>
+					<xsl:copy-of select="$incomingErrors"/>
+					<byPriority>
+						<xsl:copy-of select="$byPriority"/>
+					</byPriority>
+					<byPriorityErrorCodes>
+						<xsl:copy-of select="$byPriorityErrorCodes"/>
+					</byPriorityErrorCodes>
+					<priorities>
+						<xsl:copy-of select="$priorities"/>
+					</priorities>
+				</egDebug>
+			</xsl:if>
+			<xsl:copy-of select="$mainError"/>
+			<xsl:copy-of select="$secondaryErrors"/>
+			<returnCode>
+				<xsl:value-of select="exsl:node-set($inDoc)/fromAfx/ReturnCode"/>
+			</returnCode>
+		</errorInfo>
+	</xsl:template>
+
+</xsl:stylesheet>
