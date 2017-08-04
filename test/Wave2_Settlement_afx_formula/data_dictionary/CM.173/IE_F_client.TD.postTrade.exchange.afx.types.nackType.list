@@ -1,0 +1,18 @@
+<!-- amdg egalon galone2 -->
+<Operand Code="Vector">
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.CourtOrder#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.Freeze#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.AccountStopped#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.AccountStatusClosedAccount#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.AccountNotFound#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.FullAccountOnHold#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.PartialAccountOnHold#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.CDIC_Restricted#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.CDA_AutomaticTransferNotAvailable#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.CDA_MirroAccount#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.CDA_NoCreditFeature#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.NSF#Mx</Operand>
+  <Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.types.nackType.const.AFX_DAS_notAvailable#Mx</Operand>
+  <Operand Code="ScalarString"></Operand>
+</Operand>
+

@@ -1,0 +1,20 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="Plus">
+	<Operand Code="ScalarString">afx nack (attached)</Operand>
+	<Operand Code="ScalarString">&#10;</Operand>
+	<Operand Code="ScalarString">flowid:</Operand>
+	<Operand Code="ScalarString">[</Operand>
+	<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.in.getFlowId#Mx</Operand>
+	<Operand Code="ScalarString">]</Operand>
+	<Operand Code="ScalarString">&#10;</Operand>
+	<Operand Code="ScalarString">contractId:</Operand>
+	<Operand Code="ScalarString">[</Operand>
+	<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.in.getContractId#Mx</Operand>
+	<Operand Code="ScalarString">]</Operand>
+	<Operand Code="ScalarString">&#10;</Operand>
+	<Operand Code="ScalarString">afxRefNo:</Operand>
+	<Operand Code="ScalarString">[</Operand>
+	<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.in.getAfxRefNo#Mx</Operand>
+	<Operand Code="ScalarString">]</Operand>
+	<Operand Code="ScalarString">&#10;</Operand>
+</Operator>

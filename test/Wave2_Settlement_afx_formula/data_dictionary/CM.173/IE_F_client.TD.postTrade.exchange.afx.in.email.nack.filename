@@ -1,0 +1,16 @@
+<!-- amdg galone2 egalon -->
+<Operator Code="Plus">
+	<Operand Code="ScalarString">afxNack.</Operand>
+	<Operand Code="ScalarString">[flowId-</Operand>
+	<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.in.getFlowId#Mx</Operand>
+	<Operand Code="ScalarString">].</Operand>
+	<Operand Code="ScalarString">[contractId-</Operand>
+	<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.afx.in.getContractId#Mx</Operand>
+	<Operand Code="ScalarString">].</Operand>
+	<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.common.email.sequence.fileId#Mx	</Operand>
+	<Operand Code="ScalarString">.</Operand>
+	<Operator Code="StrToLowerCase">
+		<Operand Code="ScalarString">Mx#client.TD.postTrade.exchange.common.email.common.xsl.subStringBefore{str:Contexts.cntxt,char:Contexts.char}#Mx</Operand>
+	</Operator>
+	<Operand Code="ScalarString">.xml</Operand>
+</Operator>

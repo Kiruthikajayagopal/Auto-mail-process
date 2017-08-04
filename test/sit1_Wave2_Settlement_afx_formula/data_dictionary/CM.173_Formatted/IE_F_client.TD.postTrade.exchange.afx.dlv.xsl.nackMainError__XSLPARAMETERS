@@ -1,0 +1,32 @@
+<XSLParameters>
+  <XSLParameter>
+    <Name>stpUdf7</Name>
+    <Type>FORMULA</Type>
+    <Value>mx.postTrade.fields.stp.UDF8</Value>
+  </XSLParameter>
+  <XSLParameter>
+    <Name>const_str_noOverride</Name>
+    <Type>FORMULA</Type>
+    <Value>client.TD.postTrade.exchange.afx.types.overrideType.const.noOverride</Value>
+  </XSLParameter>
+  <XSLParameter>
+    <Name>isDebug</Name>
+    <Type>CTX</Type>
+    <Value>isDebug</Value>
+  </XSLParameter>
+  <XSLParameter>
+    <Name>jobDesc</Name>
+    <Type>FORMULA</Type>
+    <Value>mx.postTrade.fields.job.JobDesc</Value>
+  </XSLParameter>
+  <XSLParameter>
+    <Name>validLevel</Name>
+    <Type>FORMULA</Type>
+    <Value>mx.postTrade.fields.stp.ValidLevel</Value>
+  </XSLParameter>
+  <XSLParameter>
+    <Name>const_str_override</Name>
+    <Type>FORMULA</Type>
+    <Value>client.TD.postTrade.exchange.afx.types.overrideType.const.override</Value>
+  </XSLParameter>
+</XSLParameters>

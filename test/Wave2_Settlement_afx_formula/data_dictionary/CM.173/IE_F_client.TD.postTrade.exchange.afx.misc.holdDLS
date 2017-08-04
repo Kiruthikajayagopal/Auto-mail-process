@@ -1,0 +1,8 @@
+<Operator Code="Multiply">
+	<!-- Minutes to Wait -->
+	<Operand Code="ScalarDouble">70</Operand> 
+  <!-- Convert to seconds -->
+	<Operand Code="ScalarDouble">60</Operand> 
+  <!-- Convert to milliseconds -->
+	<Operand Code="ScalarDouble">1000</Operand>
+</Operator>

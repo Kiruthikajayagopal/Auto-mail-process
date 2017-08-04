@@ -1,0 +1,8 @@
+<!-- amdg egalon galone2 -->
+<Operator Code="CatchException">
+	<Operand Code="Tree">Mx#mx.generic.businessObject.Load{ID:Contexts.idArg,CLASS_LABEL:Contexts.classArg,VERSION:Contexts.versionArg}#Mx</Operand>
+	<Operand Code="Tree">
+		<getTradeObject_error><ID>MxCTX#id#Mx</ID><CLASS_LABEL>MxCTX#class#Mx</CLASS_LABEL><VERSION>MxCTX#version#Mx</VERSION><desc>ERROR calling mx.generic.businessObject.Load id:[MxCTX#id#Mx] class:[MxCTX#class#Mx] version:[MxCTX#version#Mx]</desc></getTradeObject_error>
+	</Operand>
+</Operator>
+

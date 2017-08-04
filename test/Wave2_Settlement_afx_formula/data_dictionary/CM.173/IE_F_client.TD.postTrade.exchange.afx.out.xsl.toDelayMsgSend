@@ -1,0 +1,119 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	version="1.0"
+	exclude-result-prefixes="mx exsl"
+>
+	<xsl:import href="client.TD.postTrade.exchange.afx.out.xsl.getContracts" />
+	<xsl:param name="isDebug"/>
+	<xsl:param name="currentTime"/>
+	<xsl:param name="currentDate"/>
+
+	<xsl:variable name="const_val_1" select="'1'" />
+	<xsl:variable name="const_val_startTime" select="'070000'"/>
+	<!--
+	<xsl:variable name="const_val_midnight"  select="'240000'"/>
+	-->
+	<xsl:variable name="const_val_midnight"  select="'235000'"/>
+	<xsl:variable name="const_str_true" select="'true'"/>
+	<xsl:variable name="const_str_false" select="'false'"/>
+	<xsl:variable name="const_str_scalarField" select="'STPDOC_DATA_TYPE1'"/>
+
+	<xsl:variable name="currentTimeToUse">
+		<xsl:value-of select="substring($currentTime,1,2)"/>
+		<xsl:value-of select="substring($currentTime,4,2)"/>
+		<xsl:value-of select="substring($currentTime,7,2)"/>
+	</xsl:variable>
+
+	<xsl:variable name="baseDocbaseDoc" select="." />
+
+	<xsl:variable name="contracts">
+		<xsl:variable name="contractsTmp">
+			<xsl:call-template name="getContracts">
+				<xsl:with-param name="baseDoc" select="$baseDocbaseDoc" />
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:copy-of select="$contractsTmp" />
+	</xsl:variable>
+
+	<xsl:variable name="flowID">
+		<xsl:value-of select="exsl:node-set($contracts)/item/flow/id"/>
+	</xsl:variable>
+
+	<xsl:variable name="valueDate">
+		<xsl:value-of select="exsl:node-set($contracts)/item/flow/valueDate"/>
+	</xsl:variable>
+
+	<xsl:variable name="contractID">
+		<xsl:value-of select="exsl:node-set($contracts)/item/contract/id"/>
+	</xsl:variable>
+
+	<xsl:template match="/">
+		<!--
+		<xsl:variable name="currentDate" select="mx:execute-formula('mx.postTrade.fields.stp.StatusDate')"/>
+		<xsl:variable name="currentDate" select="mx:execute-formula('mx.envData.systemDate')"/>
+		-->
+		<xsl:variable name="retVal">
+			<xsl:choose>
+				<xsl:when test="
+				($currentTimeToUse &gt; $const_val_startTime)
+				and
+				($currentTimeToUse &lt; $const_val_midnight)
+				">
+					<xsl:value-of select="$const_str_false"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$const_str_true"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+
+		<!--
+		<xsl:value-of select="$retVal"/>
+		-->
+
+		<egDebug>
+			<xsl:if test="$const_val_1 = $isDebugMxmls">
+				<mxml>
+					<xsl:copy-of select="." />
+				</mxml>
+				<contracts>
+					<xsl:copy-of select="$contracts" />
+				</contracts>
+			</xsl:if>
+			<flowID>
+				<xsl:value-of select="$flowID"/>
+			</flowID>
+			<valueDate>
+				<xsl:value-of select="$valueDate"/>
+			</valueDate>
+			<contractID>
+				<xsl:value-of select="$contractID"/>
+			</contractID>
+			<currentDate>
+				<xsl:value-of select="$currentDate"/>
+			</currentDate>
+			<currentTime>
+				<xsl:value-of select="$currentTime"/>
+			</currentTime>
+			<currentTimeToUse>
+				<xsl:value-of select="$currentTimeToUse"/>
+			</currentTimeToUse>
+			<greaterThan>
+				<xsl:value-of select="($currentTimeToUse &gt; $const_val_startTime)"/>
+			</greaterThan>
+			<const_val_startTime>
+				<xsl:value-of select="$const_val_startTime"/>
+			</const_val_startTime>
+			<const_val_midnight>
+				<xsl:value-of select="$const_val_midnight"/>
+			</const_val_midnight>
+			<retVal>
+				<xsl:value-of select="$retVal"/>
+			</retVal>
+		</egDebug>
+	</xsl:template>
+
+</xsl:stylesheet>

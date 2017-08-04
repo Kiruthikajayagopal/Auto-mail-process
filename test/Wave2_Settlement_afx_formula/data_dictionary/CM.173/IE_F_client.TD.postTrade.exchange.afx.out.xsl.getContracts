@@ -1,0 +1,131 @@
+<!-- amdg egalon galone2 -->
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:mx="http://murex.com/xslt/common"
+	xmlns:exsl="http://exslt.org/common"
+	xmlns:str="http://exslt.org/strings"
+	version="1.0"
+	exclude-result-prefixes="mx exsl str"
+	extension-element-prefixes="str"
+>
+	<xsl:param name="isDebug" />
+	<xsl:param name="isDebugMxmls" />
+	<xsl:variable name="const_str_dlv_class" select="'mxDeliverableICASH'" />
+	<xsl:variable name="const_str_contract_class" select="'mxContractISINGLE'" />
+
+	<xsl:template name="getContracts">
+		<xsl:param name="baseDoc" select="''" />
+		<xsl:variable name="contractsTmp">
+			<xsl:variable name="contractId" select="normalize-space(exsl:node-set($baseDoc)/MxML/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/producerId/creatorId)" />
+			<xsl:if test="'' != $contractId">
+				<item>
+					<xsl:variable name="flowId" select="normalize-space(exsl:node-set($baseDoc)/MxML/deliverableFlows/deliverableFlow/businessObjectId/identifier)" />
+					<xsl:variable name="flowVersion" select="normalize-space(exsl:node-set($baseDoc)/MxML/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/producerId/version)" />
+					<xsl:variable name="valueDate" select="normalize-space(exsl:node-set($baseDoc)/MxML/deliverableFlows/deliverableFlow/deliverableFlowInputCondition/valueDate)" />
+					<flow>
+						<xsl:if test="$const_val_1 = $isDebugMxmls">
+							<flowObj>
+								<xsl:copy-of select="exsl:node-set($baseDoc)" />
+							</flowObj>
+						</xsl:if>
+						<id>
+							<xsl:value-of select="$flowId" />
+						</id>
+						<version>
+							<xsl:value-of select="$flowVersion" />
+						</version>
+						<valueDate>
+							<xsl:value-of select="$valueDate" />
+						</valueDate>
+					</flow>
+					<xsl:variable name="contractVersion" select="normalize-space(exsl:node-set($baseDoc)/MxML/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/producerId/version)" />
+					<xsl:call-template name="getContractsContract">
+						<xsl:with-param name="contractId" select="$contractId" />
+						<xsl:with-param name="contractVersion" select="$contractVersion" />
+					</xsl:call-template>
+				</item>
+			</xsl:if>
+			<xsl:for-each select="exsl:node-set($baseDoc)/MxML/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/issuingEventBody/eventNetting/deliverableFlowContributors/deliverableFlow">
+				<item>
+					<!--
+				<xsl:copy-of select="." />
+				-->
+					<xsl:variable name="flowId" select="normalize-space(./businessObjectId/identifier)" />
+					<xsl:variable name="flowVersion" select="normalize-space(./businessObjectId/versionIdentifier/versionRevision/versionNumber)" />
+					<xsl:variable name="flowObj" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getTradeObject', concat('id:', $flowId,',version:',$flowVersion,',class:',$const_str_dlv_class))"/>
+					<xsl:variable name="valueDate" select="normalize-space(exsl:node-set($flowObj)/deliverableFlows/deliverableFlow/deliverableFlowInputCondition/valueDate)" />
+					<flow>
+						<xsl:if test="$const_val_1 = $isDebugMxmls">
+							<flowObj>
+								<xsl:copy-of select="exsl:node-set($flowObj)" />
+							</flowObj>
+						</xsl:if>
+						<id>
+							<xsl:value-of select="$flowId" />
+						</id>
+						<version>
+							<xsl:value-of select="$flowVersion" />
+						</version>
+						<valueDate>
+							<xsl:value-of select="$valueDate" />
+						</valueDate>
+					</flow>
+					<!--
+				<flowObj>
+					<xsl:copy-of select="exsl:node-set($flowObj)" />
+				</flowObj>
+				-->
+					<xsl:variable name="contractId" select="normalize-space(exsl:node-set($flowObj)/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/producerId/creatorId)" />
+					<xsl:variable name="contractVersion" select="normalize-space(exsl:node-set($flowObj)/deliverableFlows/deliverableFlow/deliverableFlowHeader/flowSource/flowFinancialKey/producerId/version)" />
+					<xsl:call-template name="getContractsContract">
+						<xsl:with-param name="contractId" select="$contractId" />
+						<xsl:with-param name="contractVersion" select="$contractVersion" />
+					</xsl:call-template>
+				</item>
+			</xsl:for-each>
+		</xsl:variable>
+
+		<xsl:variable name="contracts">
+			<xsl:if test="$const_val_1 = $isDebug">
+				<contractsTmp>
+					<xsl:copy-of select="$contractsTmp" />
+				</contractsTmp>
+			</xsl:if>
+			<xsl:for-each select="exsl:node-set($contractsTmp)/*">
+				<xsl:sort select="contract/id"/>
+				<xsl:copy-of select="."/>
+			</xsl:for-each>
+		</xsl:variable>
+		<xsl:copy-of select="$contracts" />
+	</xsl:template>
+
+
+	<xsl:template name="getContractsContract">
+		<xsl:param name="contractId" select="''" />
+		<xsl:param name="contractVersion" select="''" />
+		<xsl:variable name="contractObj" select="mx:execute-formula('client.TD.postTrade.exchange.afx.misc.getTradeObject', concat('id:', $contractId,',version:',$contractVersion,',class:',$const_str_contract_class))"/>
+		<xsl:variable name="systemDate" select="exsl:node-set($contractObj)/trades/trade/tradeInputConditions/systemDate"/>
+		<xsl:variable name="computerTime" select="exsl:node-set($contractObj)/trades/trade/tradeInputConditions/computerTime"/>
+		<contract>
+			<xsl:if test="$const_val_1 = $isDebugMxmls">
+				<contractObj>
+					<xsl:copy-of select="exsl:node-set($contractObj)" />
+				</contractObj>
+			</xsl:if>
+			<id>
+				<xsl:value-of select="$contractId" />
+			</id>
+			<version>
+				<xsl:value-of select="$contractVersion" />
+			</version>
+			<systemDate>
+				<xsl:value-of select="$systemDate" />
+			</systemDate>
+			<computerTime>
+				<xsl:value-of select="$computerTime" />
+			</computerTime>
+		</contract>
+	</xsl:template>
+
+
+</xsl:stylesheet>
