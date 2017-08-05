@@ -1,16 +1,15 @@
 const pd = require('pretty-data').pd;
 
 var sourceFile = require('./unzip');
-console.log(sourceFile.fileNamepassing);
-
-//const testFolder = sourceFile.fileNamepassing;
-//const formattedfolder = sourceFile.fileNamepassing;
-//onsole.log(testFolder);
-/*console.log(formattedfolder);
-
 const fs = require('fs');
 var mkdirp = require('mkdirp');
-mkdirp(sourceFile.fileNamepassing, function (err) {
+
+const testFolder = sourceFile.fileNamepassing + './sit1_Wave2_Settlement_afx_formula/data_dictionary/CM.173';
+const formattedfolder = sourceFile.fileNamepassing + './sit1_Wave2_Settlement_afx_formula/data_dictionary/CM.173_Formatted';
+console.log(testFolder);
+console.log(formattedfolder);
+
+mkdirp(sourceFile.fileNamepassing + './sit1_Wave2_Settlement_afx_formula/data_dictionary/CM.173_Formatted', function (err) {
     if (err) console.error(err)
 });
 
@@ -30,4 +29,4 @@ fs.readdir(testFolder, (err, files) => {
         });
 
     });
-})*/
+})
