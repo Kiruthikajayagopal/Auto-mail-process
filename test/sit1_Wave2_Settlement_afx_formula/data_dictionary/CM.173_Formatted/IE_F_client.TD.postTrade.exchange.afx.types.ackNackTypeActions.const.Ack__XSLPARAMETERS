@@ -1,7 +1,0 @@
-<XSLParameters>
-  <XSLParameter>
-    <Name>isDebug</Name>
-    <Type>CTX</Type>
-    <Value>isDebug</Value>
-  </XSLParameter>
-</XSLParameters>

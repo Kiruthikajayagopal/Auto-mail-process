@@ -1,3 +1,18 @@
+var fs = require('fs');
+
+var mkdirp = require('mkdirp');
+var path = require('path'), fs=require('fs'), unzip = require('unzip');
+
+
+
+if (fs.existsSync('./attachments')) {
+   // console.log("file exist")
+
+}else{
+    mkdirp( './attachments', function (err) {
+    if (err) console.error(err)
+});
+}
 
 var MailListener = require("./");
 var i=0;
@@ -15,7 +30,7 @@ var mailListener = new MailListener({
   markSeen: true,
   fetchUnreadOnStart: true,
   attachments: true,
-  attachmentOptions: { directory: "/Users/kumars/Desktop/attachments/" }
+  attachmentOptions: { directory: "./attachments/" }
 });
 mailListener.start();
 
@@ -47,8 +62,7 @@ function getFields(input, field) {
 
 var replaymail = objArray.map(function(a) {return a.address;});
 //console.log(result);
-var path = require('path'), fs=require('fs'), unzip = require('unzip');
-var fs = require('fs');
+
 
 function fromDir(startPath,filter,callback){
 
@@ -70,7 +84,7 @@ function fromDir(startPath,filter,callback){
     };
 
  };
-fromDir('/Users/kumars/Desktop/attachments',/\.zip$/,function(filename){
+fromDir('./attachments',/\.zip$/,function(filename){
    //console.log('-- found:',filename);
 mailsend=1;
 //fs.createReadStream(filename).pipe(unzip.Extract({ path: filename.slice(0, filename.lastIndexOf("/")) }));

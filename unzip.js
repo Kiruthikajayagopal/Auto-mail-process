@@ -1,6 +1,5 @@
 var path = require('path'), fs=require('fs'), unzip = require('unzip');
-var fs = require('fs');
-
+var extract = require('extract-zip')
 setInterval(function(){
 function fromDir(startPath,filter,callback){
 
@@ -20,40 +19,19 @@ function fromDir(startPath,filter,callback){
     };
 
  };
-fromDir('/Users/kumars/Desktop/attachments',/\.zip$/,function(filename){
-   //console.log('-- found:',filename.substring(0, filename.length - 4));
-  //fs.createReadStream(filename).pipe(unzip.Extract({ path:  filename.slice(0, filename.lastIndexOf("/"))   }));
-  module.exports.fileNamepassing = filename.substring(0, filename.length - 4);
+fromDir('/Users/kumars/Desktop/workspace/Project/mainproject/attachments/',/\.zip$/,function(filename){
+   console.log('-- found:',filename);
 
-fs.unlink(filename, function (err) {
+    extract(filename, {dir: filename.slice(0, filename.lastIndexOf("/"))}, function (err)
+   {
+       fs.unlink(filename, function (err) {
  if (err) console.log(err);
 });
-
+ //console.log("completed..");
+ //var formatter = require('./formatter.js')
+})
+ // fs.createReadStream(filename).pipe(unzip.Extract({ path:  filename.slice(0, filename.lastIndexOf("/"))   }));
 });
 },400);
-
- var formatter = require('./formatter.js');
-/*do
-{
-    function
-    {
-    if filename==nothing
-    a=0
-    else
-    a=1
-    }
-}
-while
-// declare your variable for the setInterval so that you can clear it later
-var myInterval; 
-
-// set your interval
-myInterval = setInterval(whichFunction,4000);
-
-whichFunction{
-    // function code goes here
-}
-
-// this code clears your interval (myInterval)
-window.clearInterval(myInterval); 
-*/
+clearInterval();
+ var formatter = require('./formatter.js')
