@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "description": "Auto mail process will automatically checks your mail, unzip it and format your code",
-  "keywords":[
+  "keywords": [
     "mail listener",
     "unzip",
     "pretty-data",
-    "formatter"  
+    "formatter"
   ],
   "main": "main_program.js",
   "repository": {
@@ -24,8 +24,8 @@
     "nodemailer": "^4.0.1",
     "sendmail": "^1.1.1",
     "unzip": "^0.1.11",
-    "pretty-data":"0.40.0",
-    "mkdirp":"0.5.1"
+    "pretty-data": "0.40.0",
+    "mkdirp": "0.5.1"
   },
   "author1": "Sasikumar <sasi.kumar@maplebots.com>",
   "author2": "Tamilselvan <tamilselvan.sundharam@maplebots.com>",
